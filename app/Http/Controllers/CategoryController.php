@@ -15,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // Mengambil data dari database dengan model
+        $data = Categories::all();
+
+        return view('category', compact('data'));
     }
 
     /**
@@ -38,13 +41,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'category_name' => 'required|string|unique:categories',
-            'description' => 'required|string'
+            'descriptions' => 'required|string'
         ], [
-            'required.category_name' => 'Nama Kategori harus diisi.',
-            'string.category_name' => 'Nama Kategori harus berupa String.',
-            'unique.category_name' => 'Nama Kategori sudah ada.',
-            'required.descriptions' => 'Deskripsi harus diisi.',
-            'string.descriptions' => 'Deskripsi harus berupa String.'
+            'category_name.required' => 'Nama Kategori harus diisi.',
+            'category_name.string' => 'Nama Kategori harus berupa String.',
+            'category_name.unique' => 'Nama Kategori sudah ada.',
+            'descriptions.required' => 'Deskripsi harus diisi.',
+            'descriptions.string' => 'Deskripsi harus berupa String.'
         ]);
 
         Categories::create($request->all());
@@ -87,11 +90,11 @@ class CategoryController extends Controller
             'category_name' => 'required|string|unique:categories',
             'description' => 'required|string'
         ], [
-            'required.category_name' => 'Nama Kategori harus diisi.',
-            'string.category_name' => 'Nama Kategori harus berupa String.',
-            'unique.category_name' => 'Nama Kategori sudah ada.',
-            'required.descriptions' => 'Deskripsi harus diisi.',
-            'string.descriptions' => 'Deskripsi harus String.'
+            'category_name.required' => 'Nama Kategori harus diisi.',
+            'category_name.string' => 'Nama Kategori harus berupa String.',
+            'category_name.unique' => 'Nama Kategori sudah ada.',
+            'descriptions.required' => 'Deskripsi harus diisi.',
+            'descriptions.string' => 'Deskripsi harus String.'
         ]);
 
         $category = Categories::find($id);
