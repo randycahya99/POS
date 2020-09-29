@@ -17,7 +17,21 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/category', 'CategoryController@index');
-Route::post('/createCategory', 'CategoryController@addCategory');
-Route::delete('/category/{category}', 'CategoryController@deleteCategory');
-Route::patch('/updateCategory/{category}', 'CategoryController@updateCategory');
+
+// Category
+Route::get('category', 'CategoryController@index');
+Route::post('createCategory', 'CategoryController@addCategory');
+Route::delete('category/{category}', 'CategoryController@deleteCategory');
+Route::patch('updateCategory/{category}', 'CategoryController@updateCategory');
+
+
+// Unit
+Route::get('unit', 'UnitController@index');
+Route::post('createUnit', 'UnitController@addUnit');
+
+
+// Product
+Route::get('product', 'ProductController@index');
+Route::post('createProduct', 'ProductController@addProduct');
+Route::post('{id}/updateProduct', 'ProductController@updateProduct');
+Route::get('{id}/deleteProduct', 'ProductController@deleteProduct');
