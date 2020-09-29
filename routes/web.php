@@ -28,6 +28,8 @@ Route::patch('updateCategory/{category}', 'CategoryController@updateCategory');
 // Unit
 Route::get('unit', 'UnitController@index');
 Route::post('createUnit', 'UnitController@addUnit');
+Route::post('{id}/updateUnit', 'UnitController@updateUnit');
+Route::get('{id}/deleteUnit', 'UnitController@deleteUnit');
 
 
 // Product
