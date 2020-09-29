@@ -19,7 +19,6 @@ Route::get('/', function () {
 
 
 
-
 // Unit
 Route::get('unit', 'UnitController@index');
 Route::post('addUnit', 'UnitController@addUnit');
