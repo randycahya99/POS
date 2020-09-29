@@ -40,11 +40,11 @@ class UnitController extends Controller
             'unit_name' => 'required|string|unique:units',
             'descriptions' => 'required|string'
         ], [
-            'required.unit_name' => 'Unit harus diisi.',
-            'string.unit_name' => 'Unit harus berupa String',
-            'unique.unit_name' => 'Unit sudah ada.',
-            'required.descriptions' => 'Deskripsi harus diisi.',
-            'string.descriptions' => 'Deskripsi harus berupa String'
+            'unit_name.required' => 'Unit harus diisi.',
+            'unit_name.string' => 'Unit harus berupa String',
+            'unit_name.unique' => 'Unit sudah ada.',
+            'descriptions.required' => 'Deskripsi harus diisi.',
+            'descriptions.string' => 'Deskripsi harus berupa String'
         ]);
 
         Units::create($request->all());
@@ -87,11 +87,11 @@ class UnitController extends Controller
             'unit_name' => 'required|string|unique:units',
             'descriptions' => 'required|string'
         ], [
-            'required.unit_name' => 'Unit harus diisi.',
-            'string.unit_name' => 'Unit harus berupa String',
-            'unique.unit_name' => 'Unit sudah ada.',
-            'required.descriptions' => 'Deskripsi harus diisi.',
-            'string.descriptions' => 'Deskripsi harus berupa String'
+            'unit_name.required' => 'Unit harus diisi.',
+            'unit_name.string' => 'Unit harus berupa String',
+            'unit_name.unique' => 'Unit sudah ada.',
+            'descriptions.required' => 'Deskripsi harus diisi.',
+            'descriptions.string' => 'Deskripsi harus berupa String'
         ]);
 
         $unit = Units::find($id);
