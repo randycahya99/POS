@@ -15,7 +15,10 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        // Mengambil data dari database dengan model
+        $data = Units::all();
+
+        return view('unit', compact('data'));
     }
 
     /**
@@ -36,7 +39,7 @@ class UnitController extends Controller
      */
     public function addUnit(Request $request)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'unit_name' => 'required|string|unique:units',
             'descriptions' => 'required|string'
         ], [
@@ -47,9 +50,17 @@ class UnitController extends Controller
             'descriptions.string' => 'Deskripsi harus berupa String'
         ]);
 
-        Units::create($request->all());
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
 
-        return redirect('unit')->with('success', 'Data unit berhasil ditambahkan.');
+        $input = $request->all();
+        
+        Units::create($input);
+        return response()->json(['success'=>'Data is successfully added']);
+
+
     }
 
     /**
@@ -84,12 +95,11 @@ class UnitController extends Controller
     public function updateUnit(Request $request, $id)
     {
         $request->validate([
-            'unit_name' => 'required|string|unique:units',
+            'unit_name' => 'required|string',
             'descriptions' => 'required|string'
         ], [
             'unit_name.required' => 'Unit harus diisi.',
             'unit_name.string' => 'Unit harus berupa String',
-            'unit_name.unique' => 'Unit sudah ada.',
             'descriptions.required' => 'Deskripsi harus diisi.',
             'descriptions.string' => 'Deskripsi harus berupa String'
         ]);

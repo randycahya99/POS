@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="utf-8">
+  <meta name="_token" content="<?php echo e(csrf_token()); ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -58,7 +59,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="<?php echo e(url('/category')); ?>">Kategori</a>
               <a class="collapse-item" href="cards.html">Produk</a>
-              <a class="collapse-item" href="cards.html">Unit</a>
+              <a class="collapse-item" href="<?php echo e(url('/unit')); ?>">Unit</a>
             </div>
           </div>
         </li>
