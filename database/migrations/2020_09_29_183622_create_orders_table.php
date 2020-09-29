@@ -14,13 +14,15 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('invoice')->unique();
             $table->enum('status', ['pending', 'lunas'])->default('pending');
-            $table->integer('customer_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('total');
             $table->timestamps();
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
