@@ -45,22 +45,22 @@ class ProductController extends Controller
             'selling_price' => 'required|numeric',
             'unit' => 'required|string'
         ], [
-            'required.product_code' => 'Kode produk harus diisi.',
-            'alpha_num.product_code' => 'Kode produk harus berupa huruf atau angka',
-            'required.product_name' => 'Nama produk harus diisi.',
-            'string.product_name' => 'Nama produk harus berupa String.',
-            'max.product_name' => 'Nama produk tidak boleh lebih dari 100 karakter.',
-            'required.product_brand' => 'Nama brand harus diisi.',
-            'string.product_brand' => 'Nama brand harus berupa String.',
-            'max.product_brand' => 'Nama brand tidak boleh lebih dari 50 karakter',
-            'required.stock' => 'Jumlah stok harus diisi.',
-            'numeric.stock' => 'Jumlah stok harus berupa angka.',
-            'required.purchase_price' => 'Harga beli produk harus diisi.',
-            'numeric.purchase_price' => 'Harga beli harus berupa angka.',
-            'required.selling_price' => 'Harga jual produk harus diisi.',
-            'numeric.selling_price' => 'Harga jual harus berupa angka.',
-            'required.unit' => 'Unit produk harus diisi.',
-            'string.unit' => 'Unit harus berupa String.'
+            'product_code.required' => 'Kode produk harus diisi.',
+            'product_code.alpha_num' => 'Kode produk harus berupa huruf atau angka',
+            'product_name.required' => 'Nama produk harus diisi.',
+            'product_name.string' => 'Nama produk harus berupa String.',
+            'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
+            'product_brand.required' => 'Nama brand harus diisi.',
+            'product_brand.string' => 'Nama brand harus berupa String.',
+            'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
+            'stock.required' => 'Jumlah stok harus diisi.',
+            'stock.numeric' => 'Jumlah stok harus berupa angka.',
+            'purchase_price.required' => 'Harga beli produk harus diisi.',
+            'purchase_price.numeric' => 'Harga beli harus berupa angka.',
+            'selling_price.required' => 'Harga jual produk harus diisi.',
+            'selling_price.numeric' => 'Harga jual harus berupa angka.',
+            'unit.required' => 'Unit produk harus diisi.',
+            'unit.string' => 'Unit harus berupa String.'
         ]);
 
         Products::create($request->all());
@@ -108,22 +108,22 @@ class ProductController extends Controller
             'selling_price' => 'required|numeric',
             'unit' => 'required|string'
         ], [
-            'required.product_code' => 'Kode produk harus diisi.',
-            'alpha_num.product_code' => 'Kode produk harus berupa huruf atau angka',
-            'required.product_name' => 'Nama produk harus diisi.',
-            'string.product_name' => 'Nama produk harus berupa String.',
-            'max.product_name' => 'Nama produk tidak boleh lebih dari 100 karakter.',
-            'required.product_brand' => 'Nama brand harus diisi.',
-            'string.product_brand' => 'Nama brand harus berupa String.',
-            'max.product_brand' => 'Nama brand tidak boleh lebih dari 50 karakter',
-            'required.stock' => 'Jumlah stok harus diisi.',
-            'numeric.stock' => 'Jumlah stok harus berupa angka.',
-            'required.purchase_price' => 'Harga beli produk harus diisi.',
-            'numeric.purchase_price' => 'Harga beli harus berupa angka.',
-            'required.selling_price' => 'Harga jual produk harus diisi.',
-            'numeric.selling_price' => 'Harga jual harus berupa angka.',
-            'required.unit' => 'Unit produk harus diisi.',
-            'string.unit' => 'Unit harus berupa String.'
+            'product_code.required' => 'Kode produk harus diisi.',
+            'product_code.alpha_num' => 'Kode produk harus berupa huruf atau angka',
+            'product_name.required' => 'Nama produk harus diisi.',
+            'product_name.string' => 'Nama produk harus berupa String.',
+            'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
+            'product_brand.required' => 'Nama brand harus diisi.',
+            'product_brand.string' => 'Nama brand harus berupa String.',
+            'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
+            'stock.required' => 'Jumlah stok harus diisi.',
+            'stock.numeric' => 'Jumlah stok harus berupa angka.',
+            'purchase_price.required' => 'Harga beli produk harus diisi.',
+            'purchase_price.numeric' => 'Harga beli harus berupa angka.',
+            'selling_price.required' => 'Harga jual produk harus diisi.',
+            'selling_price.numeric' => 'Harga jual harus berupa angka.',
+            'unit.required' => 'Unit produk harus diisi.',
+            'unit.string' => 'Unit harus berupa String.'
         ]);
 
         $product = Products::find($id);
