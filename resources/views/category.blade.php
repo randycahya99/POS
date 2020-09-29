@@ -134,13 +134,13 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="editCategory/{{$dt->id}}" method="POST">
+				<form action="updateCategory/{{$dt->id}}" method="POST">
 					@method('patch')
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control @error('nama') is-invalid @enderror" value="{{($dt->nama)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="nama">
-						@error('nama')
+						<input type="text" class="form-control @error('category_name') is-invalid @enderror" value="{{($dt->category_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name">
+						@error('category_name')
 						<div class="invalid-feedback">
 							{{ $message }}
 						</div>
@@ -148,10 +148,10 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control @error('deskripsi') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="deskripsi" placeholder="Masukan deskripsi kategori">{{$dt->deskripsi}}</textarea>
-						@if ($errors->has('deskripsi'))
+						<textarea class="form-control @error('descriptions') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori">{{$dt->descriptions}}</textarea>
+						@if ($errors->has('descriptions'))
 						<div class="invalid-feedback">
-							{{ $errors->first('deskripsi') }}
+							{{ $errors->first('descriptions') }}
 						</div>
 						@endif
 					</div>
@@ -165,6 +165,4 @@
 	</div>
 </div>
 @endforeach
-
-
 @endsection

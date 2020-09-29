@@ -164,20 +164,20 @@ unset($__errorArgs, $__bag); ?>
 			</div>
 
 			<div class="modal-body">
-				<form action="editCategory/<?php echo e($dt->id); ?>" method="POST">
+				<form action="updateCategory/<?php echo e($dt->id); ?>" method="POST">
 					<?php echo method_field('patch'); ?>
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control <?php $__errorArgs = ['nama'];
+						<input type="text" class="form-control <?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(($dt->nama)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="nama">
-						<?php $__errorArgs = ['nama'];
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(($dt->category_name)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name">
+						<?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -193,17 +193,17 @@ unset($__errorArgs, $__bag); ?>
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control <?php $__errorArgs = ['deskripsi'];
+						<textarea class="form-control <?php $__errorArgs = ['descriptions'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name="deskripsi" placeholder="Masukan deskripsi kategori"><?php echo e($dt->deskripsi); ?></textarea>
-						<?php if($errors->has('deskripsi')): ?>
+unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"><?php echo e($dt->descriptions); ?></textarea>
+						<?php if($errors->has('descriptions')): ?>
 						<div class="invalid-feedback">
-							<?php echo e($errors->first('deskripsi')); ?>
+							<?php echo e($errors->first('descriptions')); ?>
 
 						</div>
 						<?php endif; ?>
@@ -218,7 +218,5 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 	</div>
 </div>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel\POS\resources\views/category.blade.php ENDPATH**/ ?>

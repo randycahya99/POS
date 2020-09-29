@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get('/category', 'CategoryController@index');
 Route::post('/createCategory', 'CategoryController@addCategory');
 Route::delete('/category/{category}', 'CategoryController@deleteCategory');
+Route::patch('/updateCategory/{category}', 'CategoryController@updateCategory');

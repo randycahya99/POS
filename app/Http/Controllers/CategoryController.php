@@ -87,12 +87,11 @@ class CategoryController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $request->validate([
-            'category_name' => 'required|string|unique:categories',
-            'description' => 'required|string'
+            'category_name' => 'required|string',
+            'descriptions' => 'required|string'
         ], [
             'category_name.required' => 'Nama Kategori harus diisi.',
             'category_name.string' => 'Nama Kategori harus berupa String.',
-            'category_name.unique' => 'Nama Kategori sudah ada.',
             'descriptions.required' => 'Deskripsi harus diisi.',
             'descriptions.string' => 'Deskripsi harus String.'
         ]);
