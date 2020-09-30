@@ -58,7 +58,10 @@ class UnitController extends Controller
         $input = $request->all();
         
         Units::create($input);
+
+        $request->session()->flash('sukses', 'Task was successful!');
         return response()->json(['success'=>'Data is successfully added']);
+
 
 
     }

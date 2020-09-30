@@ -1,5 +1,6 @@
 @extends('layout.main')
 
+
 @section('title','Unit')
 
 @section('container')
@@ -34,14 +35,18 @@
 			</div>
 			@endif
 
-			@if(session('success'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				<strong>{{ session('success') }}</strong> 
+			
+<!-- 			<div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
+				<strong>Data berhasil ditambah</strong> 
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
+			</div> -->
+
+			@if(session('sukses'))
+
 			@endif
+			
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
@@ -199,44 +204,46 @@
 @endforeach
 @endsection
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
-<script>
-	$(document).ready(function(){
-		$('#formSubmit').click(function(e){
-			e.preventDefault();
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-				}
-			});
-			$.ajax({
-				url: "{{ url('/addUnit') }}",
-				method: 'post',
-				data: {
-					unit_name: $('#unit_name').val(),
-					descriptions: $('#descriptions').val(),
-				},
-				success: function(result){
-					if(result.errors)
-					{
-						$('.alert-danger').html('');
-
-						$.each(result.errors, function(key, value){
-							$('.alert-danger').show();
-							$('.alert-danger').append('<li>'+value+'</li>');
-						});
+	<script>
+		$(document).ready(function(){
+			$('#formSubmit').click(function(e){
+				e.preventDefault();
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 					}
-					else
-					{
-						$('.alert-danger').hide();
-						$('#exampleModal').modal('hide');
-						location.reload();
-					}
-				}
+				});
+				$.ajax({
+					url: "{{ url('/addUnit') }}",
+					method: 'post',
+					data: {
+						unit_name: $('#unit_name').val(),
+						descriptions: $('#descriptions').val(),
+					},
+					success: function(result){
+						if(result.errors)
+						{
+							$('.alert-danger').html('');
 
+							$.each(result.errors, function(key, value){
+								$('.alert-danger').show();
+								$('.alert-danger').append('<li>'+value+'</li>');
+							});
+						}
+						else
+						{
+							$('.alert-danger').hide();
+							$('#exampleModal').modal('hide');
+							window.location.href = "/unit";
+
+							
+						}
+					}
+
+				});
 			});
+
 		});
-
-	});
 
 	// Untuk menghilangkan data pada form dimodal ketika di close
 	// $(document).ready(function(){

@@ -19,7 +19,10 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo e(asset('assets/adminpos/css/sb-admin-2.min.css')); ?>" rel="stylesheet">
+  
   <link href="<?php echo e(asset('assets/adminpos/vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
+
+  <link href="<?php echo e(asset('assets/adminpos/css/sweetalert2.min.css')); ?>" rel="stylesheet">
 
 </head>
 
@@ -244,7 +247,7 @@
       </div>
 
       
-   
+      
 
       <!-- Bootstrap core JavaScript-->
       <script src="<?php echo e(asset('assets/adminpos/vendor/jquery/jquery.min.js')); ?>"></script>
@@ -258,6 +261,7 @@
 
       <!-- Page level plugins -->
       <script src="<?php echo e(asset('assets/adminpos/vendor/chart.js/Chart.min.js')); ?>"></script>
+      <script src="<?php echo e(asset('assets/adminpos/js/sweetalert2.all.min.js')); ?>"></script>
 
       <!-- Page level custom scripts -->
       <script src="<?php echo e(asset('assets/adminpos/js/demo/chart-area-demo.js')); ?>"></script>
@@ -267,7 +271,17 @@
       <script src="<?php echo e(asset('assets/adminpos/vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
       <script src="<?php echo e(asset('assets/adminpos/js/demo/datatables-demo.js')); ?>"></script>
 
-    </body>
 
-    </html>
+      <?php if(session('sukses')): ?>    
+      <script type="text/javascript">
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+          )
+        </script>
+        <?php endif; ?>
+      </body>
+
+      </html>
 <?php /**PATH E:\laravel\POS\resources\views/layout/main.blade.php ENDPATH**/ ?>
