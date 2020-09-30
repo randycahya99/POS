@@ -43,11 +43,11 @@ class UnitController extends Controller
             'unit_name' => 'required|string|unique:units',
             'descriptions' => 'required|string'
         ], [
-            'unit_name.required' => 'Unit harus diisi.',
-            'unit_name.string' => 'Unit harus berupa String',
-            'unit_name.unique' => 'Unit sudah ada.',
-            'descriptions.required' => 'Deskripsi harus diisi.',
-            'descriptions.string' => 'Deskripsi harus berupa String'
+            'unit_name.required' => 'Nama unit tidak boleh kosong.',
+            'unit_name.string' => 'Nama unit harus berupa angka dan huruf',
+            'unit_name.unique' => 'Nama unit sudah ada.',
+            'descriptions.required' => 'Deskripsi unit tidak boleh kosong.',
+            'descriptions.string' => 'Deskripsi unit harus berupa angka dan huruf'
         ]);
 
         if ($validator->fails())
@@ -59,7 +59,7 @@ class UnitController extends Controller
         
         Units::create($input);
 
-        $request->session()->flash('sukses', 'Task was successful!');
+        $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
         return response()->json(['success'=>'Data is successfully added']);
 
 
@@ -101,16 +101,17 @@ class UnitController extends Controller
             'unit_name' => 'required|string',
             'descriptions' => 'required|string'
         ], [
-            'unit_name.required' => 'Unit harus diisi.',
-            'unit_name.string' => 'Unit harus berupa String',
-            'descriptions.required' => 'Deskripsi harus diisi.',
-            'descriptions.string' => 'Deskripsi harus berupa String'
+            'unit_name.required' => 'Nama unit tidak boleh kosong.',
+            'unit_name.string' => 'Nama unit harus berupa angka dan huruf',
+            'unit_name.unique' => 'Nama unit sudah ada.',
+            'descriptions.required' => 'Deskripsi unit tidak boleh kosong.',
+            'descriptions.string' => 'Deskripsi unit harus berupa angka dan huruf'
         ]);
 
         $unit = Units::find($id);
         $unit->update($request->all());
 
-        return redirect('/unit')->with('success', 'Data unit berhasil diperbarui.');
+        return redirect('/unit')->with('sukses', 'Data unit berhasil diperbarui.');
     }
 
     /**
@@ -124,6 +125,6 @@ class UnitController extends Controller
         $unit = Units::find($id);
         $unit->delete();
 
-        return redirect('/unit')->with('success', 'Data unit berhasil dihapus.');
+        return redirect('/unit');
     }
 }

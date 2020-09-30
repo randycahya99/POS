@@ -34,7 +34,6 @@
 				</button>
 			</div>
 			@endif
-
 			
 <!-- 			<div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
 				<strong>Data berhasil ditambah</strong> 
@@ -43,9 +42,7 @@
 				</button>
 			</div> -->
 
-			@if(session('sukses'))
-
-			@endif
+			@if(session('sukses')) @endif
 			
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -73,12 +70,12 @@
 								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$dt['id']}}">
 									<i class="fas fa-edit"></i>
 								</a> --}}
-								<button class="btn btn-danger btn-circle btn-sm" title="Hapus" data-toggle="modal" data-target="#hapusData{{$dt['id']}}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+								<a href="{{$dt->id}}/deleteUnit" class="btn btn-danger btn-circle btn-sm hapusUnit">
+									<i class="fas fa-trash"></i>
+								</a>
+								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+									<i class="fas fa-edit"></i>
+								</button>
 							</td>
 						</tr>
 						@endforeach
@@ -137,7 +134,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Unit</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -170,14 +167,14 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Data Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
 			<div class="modal-body">
-				<form action="{{$dt->id}}/updateUnit" method="POST">
+				<form action="{{$dt->id}}/updateUnit" method="POST" id="wkwk">
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Unit</label>
@@ -199,7 +196,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary" id="change-message" disabled="true">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -212,74 +209,80 @@
 <!-- Modal Hapus Data -->
 @foreach($data as $dt)
 <div class="modal fade" id="hapusData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin akan menghapus data ini?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <a href="{{$dt->id}}/deleteUnit" class="btn btn-danger">Hapus</a>
-            </div> 
-        </div>
-    </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Apakah Anda yakin akan menghapus data ini?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<a href="{{$dt->id}}/deleteUnit" class="btn btn-danger">Hapus</a>
+			</div> 
+		</div>
+	</div>
 </div>
 @endforeach
 
 @endsection
 
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
-	<script>
-		$(document).ready(function(){
-			$('#formSubmit').click(function(e){
-				e.preventDefault();
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-					}
-				});
-				$.ajax({
-					url: "{{ url('/addUnit') }}",
-					method: 'post',
-					data: {
-						unit_name: $('#unit_name').val(),
-						descriptions: $('#descriptions').val(),
-					},
-					success: function(result){
-						if(result.errors)
-						{
-							$('.alert-danger').html('');
-
-							$.each(result.errors, function(key, value){
-								$('.alert-danger').show();
-								$('.alert-danger').append('<li>'+value+'</li>');
-							});
-						}
-						else
-						{
-							$('.alert-danger').hide();
-							$('#exampleModal').modal('hide');
-							window.location.href = "/unit";
-
-							
-						}
-					}
-
-				});
+<script>
+	$(document).ready(function(){
+		$('#formSubmit').click(function(e){
+			e.preventDefault();
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+				}
 			});
+			$.ajax({
+				url: "{{ url('/addUnit') }}",
+				method: 'post',
+				data: {
+					unit_name: $('#unit_name').val(),
+					descriptions: $('#descriptions').val(),
+				},
+				success: function(result){
+					if(result.errors)
+					{
+						$('.alert-danger').html('');
 
+						$.each(result.errors, function(key, value){
+							$('.alert-danger').show();
+							$('.alert-danger').append('<li>'+value+'</li>');
+						});
+					}
+					else
+					{
+						$('.alert-danger').hide();
+						$('#exampleModal').modal('hide');
+						window.location.href = "/unit";
+					}
+				}
+			});
 		});
-
-	// Untuk menghilangkan data pada form dimodal ketika di close
-	// $(document).ready(function(){
-	// 	$('#exampleModal').on('hidden.bs.modal', function () {
-	// 		$(this).find('form').trigger('reset');
-	// 	});
-	// });
+	});
 </script>
+
+<!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
+<script type="text/javascript">
+	$(document).ready(function(){
+          // Untuk Menentukan apakah ada perubahan atau tidak(KOREKSI)
+          var $form = $('#wkwk'),
+          origForm = $form.serialize();
+          $('form :input').on('change input', function() {
+            // $('.change-message').toggle($form.serialize() !== origForm);
+            if ($form.serialize() !== origForm) {
+              $("#change-message").prop('disabled',false)//use prop()
+          }else{
+              $("#change-message").prop('disabled',true)//use prop()
+          }
+      });
+      });
+  </script>

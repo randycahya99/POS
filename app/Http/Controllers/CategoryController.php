@@ -39,20 +39,28 @@ class CategoryController extends Controller
      */
     public function addCategory(Request $request)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'category_name' => 'required|string|unique:categories',
             'descriptions' => 'required|string'
         ], [
-            'category_name.required' => 'Nama Kategori harus diisi.',
-            'category_name.string' => 'Nama Kategori harus berupa String.',
-            'category_name.unique' => 'Nama Kategori sudah ada.',
-            'descriptions.required' => 'Deskripsi harus diisi.',
-            'descriptions.string' => 'Deskripsi harus berupa String.'
+            'category_name.required' => 'Nama kategori tidak boleh kosong',
+            'category_name.string' => 'Nama kategori harus berupa huruf dan angka.',
+            'category_name.unique' => 'Nama kategori sudah ada.',
+            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong.',
+            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka.'
         ]);
 
-        Categories::create($request->all());
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
 
-        return redirect('/category')->with('success', 'Data kategori berhasil ditambahkan.');
+        $input = $request->all();
+        
+        Categories::create($input);
+
+        $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
+        return response()->json(['success'=>'Data is successfully added']);
     }
 
     /**
@@ -90,16 +98,17 @@ class CategoryController extends Controller
             'category_name' => 'required|string',
             'descriptions' => 'required|string'
         ], [
-            'category_name.required' => 'Nama Kategori harus diisi.',
-            'category_name.string' => 'Nama Kategori harus berupa String.',
-            'descriptions.required' => 'Deskripsi harus diisi.',
-            'descriptions.string' => 'Deskripsi harus String.'
+            'category_name.required' => 'Nama kategori tidak boleh kosong',
+            'category_name.string' => 'Nama kategori harus berupa huruf dan angka.',
+            'category_name.unique' => 'Nama kategori sudah ada.',
+            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong.',
+            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka.'
         ]);
 
         $category = Categories::find($id);
         $category->update($request->all());
 
-        return redirect('/category')->with('success', 'Data kategori berhasil diperbarui.');
+        return redirect('/category')->with('sukses', 'Data kategori berhasil diperbarui.');
     }
 
     /**
@@ -113,6 +122,6 @@ class CategoryController extends Controller
         $category = Categories::find($id);
         $category->delete();
 
-        return redirect('/category')->with('success', 'Data kategori berhasil dihapus');
+        return redirect('/category');
     }
 }

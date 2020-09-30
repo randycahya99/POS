@@ -275,12 +275,77 @@
       @if(session('sukses'))    
       <script type="text/javascript">
         Swal.fire(
-          'Good job!',
-          'You clicked the button!',
+          'Berhasil',
+          '{{session('sukses')}}',
           'success'
           )
         </script>
         @endif
-      </body>
 
+        <!-- SweetAlert HapusUnit -->
+        <script type="text/javascript">
+          $('.hapusUnit').on('click', function(e){
+            e.preventDefault();
+
+            const href = $(this).attr('href')
+
+            Swal.fire({
+              title: 'Ingin Menghapus Data?',
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes'
+            }).then((result) => {
+              if (result.value) {
+               setTimeout(function(){ 
+
+                 document.location.href = href;
+
+               }, 900);
+               Swal.fire(
+                'Terhapus',
+                'Data Berhasil dihapus',
+                'success',
+                'showConfirmButton: false',
+                'timer: 2000'
+                )
+             }
+           })
+          })
+        </script>
+
+        <!-- SweetAlert HapusCategory -->
+        <script type="text/javascript">
+          $('.hapusCategory').on('click', function(e){
+            e.preventDefault();
+
+            const href = $(this).attr('href')
+
+            Swal.fire({
+              title: 'Ingin Menghapus Data?',
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes'
+            }).then((result) => {
+              if (result.value) {
+               setTimeout(function(){ 
+
+                 document.location.href = href;
+
+               }, 900);
+               Swal.fire(
+                'Terhapus',
+                'Data Berhasil dihapus',
+                'success',
+                'showConfirmButton: false',
+                'timer: 2000'
+                )
+             }
+           })
+          })
+        </script>
+      </body>
       </html>
