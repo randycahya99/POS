@@ -12,7 +12,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary float-left">Unit</h6>
-			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
 				Tambah Unit
 			</button>
 		</div>
@@ -60,14 +60,20 @@
 							<td>{{$dt->unit_name}}</td>
 							<td>{{$dt->descriptions}}</td>
 							<td>
-								<form method="post" action="unit/{{ $dt->id }}" class="d-inline">
+								{{-- <form method="post" action="unit/{{ $dt->id }}" class="d-inline">
 									@method('delete')
 									@csrf
 									<button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
 								</form>
 								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$dt['id']}}">
 									<i class="fas fa-edit"></i>
-								</a>
+								</a> --}}
+								<button class="btn btn-danger btn-circle btn-sm" title="Hapus" data-toggle="modal" data-target="#hapusData{{$dt['id']}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
 							</td>
 						</tr>
 						@endforeach
@@ -121,8 +127,8 @@
 	</div>
 </div> -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Tambah Data -->
+<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -133,7 +139,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-danger" style="display:none"></div>
-				<form class="image-upload" method="post" action="addUnit">
+				<form action="addUnit" method="POST">
 					@csrf
 					<div class="form-group">
 						<label>Nama Unit</label>
@@ -166,8 +172,7 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="updateUnit/{{$dt->id}}" method="POST">
-					@method('patch')
+				<form action="{{$dt->id}}/updateUnit" method="POST">
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Unit</label>
@@ -197,7 +202,33 @@
 	</div>
 </div>
 @endforeach
+
+
+<!-- Modal Hapus Data -->
+@foreach($data as $dt)
+<div class="modal fade" id="hapusData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin akan menghapus data ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <a href="{{$dt->id}}/deleteUnit" class="btn btn-danger">Hapus</a>
+            </div> 
+        </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
+
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
 <script>
 	$(document).ready(function(){

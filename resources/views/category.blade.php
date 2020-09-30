@@ -60,14 +60,20 @@
 							<td>{{$dt->category_name}}</td>
 							<td>{{$dt->descriptions}}</td>
 							<td>
-								<form method="post" action="category/{{ $dt->id }}" class="d-inline">
+								{{-- <form method="post" action="category/{{ $dt->id }}" class="d-inline">
 									@method('delete')
 									@csrf
 									<button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
 								</form>
 								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$dt['id']}}">
 									<i class="fas fa-edit"></i>
-								</a>
+								</a> --}}
+								<button class="btn btn-danger btn-circle btn-sm" title="Hapus" data-toggle="modal" data-target="#hapusData{{$dt['id']}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
 							</td>
 						</tr>
 						@endforeach
@@ -91,7 +97,7 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="createCategory" method="POST">
+				<form action="addCategory" method="POST">
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
@@ -134,8 +140,7 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="updateCategory/{{$dt->id}}" method="POST">
-					@method('patch')
+				<form action="{{$dt->id}}/updateCategory" method="POST">
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
@@ -165,4 +170,29 @@
 	</div>
 </div>
 @endforeach
+
+
+<!-- Modal Hapus Data -->
+@foreach($data as $dt)
+<div class="modal fade" id="hapusData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin akan menghapus data ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <a href="{{$dt->id}}/deleteCategory" class="btn btn-danger">Hapus</a>
+            </div> 
+        </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
