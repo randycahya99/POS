@@ -74,7 +74,7 @@ class ProductController extends Controller
 
         Products::create($request->all());
 
-        return redirect('/product')->with('success', 'Data produk berhasil ditambahkan.');
+        return redirect('/product')->with('sukses', 'Data produk berhasil ditambahkan.');
     }
 
     /**
@@ -139,7 +139,7 @@ class ProductController extends Controller
         $product = Products::find($id);
         $product->update($request->all());
 
-        return redirect('/product')->with('success', 'Data produk berhasil diperbarui.');
+        return redirect('/product')->with('sukses', 'Data produk berhasil diperbarui.');
     }
 
     /**
@@ -153,6 +153,6 @@ class ProductController extends Controller
         $product = Products::find($id);
         $product->delete();
 
-        return redirect('/product')->with('success', 'Data produk berhasil dihapus.');
+        return redirect('/product');
     }
 }

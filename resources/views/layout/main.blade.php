@@ -347,5 +347,38 @@
            })
           })
         </script>
+
+        <!-- SweetAlert HapusProduct -->
+        <script type="text/javascript">
+          $('.hapusProduct').on('click', function(e){
+            e.preventDefault();
+
+            const href = $(this).attr('href')
+
+            Swal.fire({
+              title: 'Ingin Menghapus Data?',
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes'
+            }).then((result) => {
+              if (result.value) {
+               setTimeout(function(){ 
+
+                 document.location.href = href;
+
+               }, 900);
+               Swal.fire(
+                'Terhapus',
+                'Data Berhasil dihapus',
+                'success',
+                'showConfirmButton: false',
+                'timer: 2000'
+                )
+             }
+           })
+          })
+        </script>
       </body>
       </html>
