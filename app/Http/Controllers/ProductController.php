@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Products;
+use App\Models\Units;
+use App\Models\Categories;
 
 class ProductController extends Controller
 {
@@ -15,7 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Products::all();
+        $unit = Units::all();
+        $category = Categories::all();
+
+        return view('product', compact('product','unit','category'));
     }
 
     /**
@@ -37,19 +43,22 @@ class ProductController extends Controller
     public function addProduct(Request $request)
     {
         $request->validate([
-            'product_code' => 'required|alpha_num',
-            'product_name' => 'required|string|max:100',
+            'product_code' => 'required|string|unique:products',
+            'product_name' => 'required|string|max:100|unique:products',
             'product_brand' => 'required|string|max:50',
             'stock' => 'required|numeric',
             'purchase_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
-            'unit' => 'required|string'
+            'unit_id' => 'required',
+            'category_id' => 'required'
         ], [
             'product_code.required' => 'Kode produk harus diisi.',
-            'product_code.alpha_num' => 'Kode produk harus berupa huruf atau angka',
+            'product_code.string' => 'Kode produk harus berupa String.',
+            'product_code.unique' => 'Kode produk sudah ada.',
             'product_name.required' => 'Nama produk harus diisi.',
             'product_name.string' => 'Nama produk harus berupa String.',
             'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
+            'product_name.unique' => 'Nama produk sudah ada.',
             'product_brand.required' => 'Nama brand harus diisi.',
             'product_brand.string' => 'Nama brand harus berupa String.',
             'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
@@ -59,8 +68,8 @@ class ProductController extends Controller
             'purchase_price.numeric' => 'Harga beli harus berupa angka.',
             'selling_price.required' => 'Harga jual produk harus diisi.',
             'selling_price.numeric' => 'Harga jual harus berupa angka.',
-            'unit.required' => 'Unit produk harus diisi.',
-            'unit.string' => 'Unit harus berupa String.'
+            'unit_id.required' => 'Unit produk harus diisi.',
+            'category_id' => 'Kategori produk harus diisi.'
         ]);
 
         Products::create($request->all());
@@ -106,7 +115,8 @@ class ProductController extends Controller
             'stock' => 'required|numeric',
             'purchase_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
-            'unit' => 'required|string'
+            'unit_id' => 'required',
+            'category_id' => 'required'
         ], [
             'product_code.required' => 'Kode produk harus diisi.',
             'product_code.alpha_num' => 'Kode produk harus berupa huruf atau angka',
@@ -122,8 +132,8 @@ class ProductController extends Controller
             'purchase_price.numeric' => 'Harga beli harus berupa angka.',
             'selling_price.required' => 'Harga jual produk harus diisi.',
             'selling_price.numeric' => 'Harga jual harus berupa angka.',
-            'unit.required' => 'Unit produk harus diisi.',
-            'unit.string' => 'Unit harus berupa String.'
+            'unit_id.required' => 'Unit produk harus diisi.',
+            'category_id.required' => 'Kategori produk harus diisi.'
         ]);
 
         $product = Products::find($id);

@@ -22,19 +22,19 @@ Route::get('/', function () {
 // Unit
 Route::get('unit', 'UnitController@index');
 Route::post('addUnit', 'UnitController@addUnit');
-Route::delete('unit/{unit}', 'UnitController@deleteUnit');
-Route::patch('updateUnit/{unit}', 'UnitController@updateUnit');
+Route::post('{id}/updateUnit', 'UnitController@updateUnit');
+Route::get('{id}/deleteUnit', 'UnitController@deleteUnit');
 
 
 // Category
 Route::get('category', 'CategoryController@index');
-Route::post('createCategory', 'CategoryController@addCategory');
-Route::delete('category/{category}', 'CategoryController@deleteCategory');
-Route::patch('updateCategory/{category}', 'CategoryController@updateCategory');
+Route::post('addCategory', 'CategoryController@addCategory');
+Route::post('{id}/updateCategory', 'CategoryController@updateCategory');
+Route::get('{id}/deleteCategory', 'CategoryController@deleteCategory');
 
 
 // Product
 Route::get('product', 'ProductController@index');
-Route::post('createProduct', 'ProductController@addProduct');
+Route::post('addProduct', 'ProductController@addProduct');
 Route::post('{id}/updateProduct', 'ProductController@updateProduct');
 Route::get('{id}/deleteProduct', 'ProductController@deleteProduct');
