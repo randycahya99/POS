@@ -109,7 +109,7 @@ class ProductController extends Controller
     public function updateProduct(Request $request, $id)
     {
         $request->validate([
-            'product_code' => 'required|alpha_num',
+            'product_code' => 'required|string',
             'product_name' => 'required|string|max:100',
             'product_brand' => 'required|string|max:50',
             'stock' => 'required|numeric',
@@ -119,7 +119,7 @@ class ProductController extends Controller
             'category_id' => 'required'
         ], [
             'product_code.required' => 'Kode produk harus diisi.',
-            'product_code.alpha_num' => 'Kode produk harus berupa huruf atau angka',
+            'product_code.string' => 'Kode produk harus berupa String.',
             'product_name.required' => 'Nama produk harus diisi.',
             'product_name.string' => 'Nama produk harus berupa String.',
             'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
@@ -137,7 +137,7 @@ class ProductController extends Controller
         ]);
 
         $product = Products::find($id);
-        $product->update();
+        $product->update($request->all());
 
         return redirect('/product')->with('success', 'Data produk berhasil diperbarui.');
     }
