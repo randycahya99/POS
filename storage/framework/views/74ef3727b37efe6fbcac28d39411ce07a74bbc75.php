@@ -61,7 +61,7 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="<?php echo e(url('/category')); ?>">Kategori</a>
-              <a class="collapse-item" href="cards.html">Produk</a>
+              <a class="collapse-item" href="<?php echo e(url('/product')); ?>">Produk</a>
               <a class="collapse-item" href="<?php echo e(url('/unit')); ?>">Unit</a>
             </div>
           </div>
@@ -247,7 +247,7 @@
       </div>
 
       
-      
+
 
       <!-- Bootstrap core JavaScript-->
       <script src="<?php echo e(asset('assets/adminpos/vendor/jquery/jquery.min.js')); ?>"></script>

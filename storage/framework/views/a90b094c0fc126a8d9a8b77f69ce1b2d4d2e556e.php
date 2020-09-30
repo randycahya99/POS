@@ -60,14 +60,13 @@
 							<td><?php echo e($dt->category_name); ?></td>
 							<td><?php echo e($dt->descriptions); ?></td>
 							<td>
-								<form method="post" action="category/<?php echo e($dt->id); ?>" class="d-inline">
-									<?php echo method_field('delete'); ?>
-									<?php echo csrf_field(); ?>
-									<button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
-								</form>
-								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData<?php echo e($dt['id']); ?>">
-									<i class="fas fa-edit"></i>
-								</a>
+								
+								<button class="btn btn-danger btn-circle btn-sm" title="Hapus" data-toggle="modal" data-target="#hapusData<?php echo e($dt['id']); ?>">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData<?php echo e($dt['id']); ?>">
+                                    <i class="fas fa-edit"></i>
+                                </button>
 							</td>
 						</tr>
 						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -91,7 +90,7 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="createCategory" method="POST">
+				<form action="addCategory" method="POST">
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
@@ -164,8 +163,7 @@ unset($__errorArgs, $__bag); ?>
 			</div>
 
 			<div class="modal-body">
-				<form action="updateCategory/<?php echo e($dt->id); ?>" method="POST">
-					<?php echo method_field('patch'); ?>
+				<form action="<?php echo e($dt->id); ?>/updateCategory" method="POST">
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
@@ -218,5 +216,30 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 	</div>
 </div>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+<!-- Modal Hapus Data -->
+<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade" id="hapusData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin akan menghapus data ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger">Hapus</a>
+            </div> 
+        </div>
+    </div>
+</div>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel\POS\resources\views/category.blade.php ENDPATH**/ ?>
