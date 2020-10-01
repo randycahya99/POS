@@ -8,16 +8,17 @@
 <div class="container-fluid">
 
 
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary float-left">Kategori</h6>
 			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
-				Tambah Kategori
+				Tambah Unit
 			</button>
 		</div>
 		<div class="card-body">
-			@if ($errors->any())
+			<!-- @if ($errors->any())
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data kategori dikarenakan :</strong>
 				<ul>
@@ -32,16 +33,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			@endif
-
-<!-- 			@if(session('success'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				<strong>{{ session('success') }}</strong> 
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
 			@endif -->
+
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
@@ -71,9 +64,9 @@
 								<a href="{{$dt->id}}/deleteCategory" class="btn btn-danger btn-circle btn-sm hapusCategory">
 									<i class="fas fa-trash"></i>
 								</a>
-                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+									<i class="fas fa-edit"></i>
+								</button>
 							</td>
 						</tr>
 						@endforeach
@@ -85,12 +78,13 @@
 </div>
 <!-- /.container-fluid -->
 
+
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Kategori</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -100,18 +94,18 @@
 				<form action="addCategory" method="POST">
 					@csrf
 					<div class="form-group">
-						<label>Nama Kategori</label>
-						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama kategori" />
+						<label>Nama Unit</label>
+						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama unit" />
 					</div>
 					<div class="form-group">
-						<label>Deskripsi Kategori</label>
-						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi kategori"></textarea>
+						<label>Deskripsi Unit</label>
+						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi unit"></textarea>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="batal">Batal</button>
-				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Kategori</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Unit</button>
 			</div>
 		</div>
 	</div>
@@ -152,7 +146,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary" id="change-message" disabled="true">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary" id="change-message">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -165,29 +159,38 @@
 <!-- Modal Hapus Data -->
 @foreach($data as $dt)
 <div class="modal fade" id="hapusData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin akan menghapus data ini?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <a href="{{$dt->id}}/deleteCategory" class="btn btn-danger">Hapus</a>
-            </div> 
-        </div>
-    </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Apakah Anda yakin akan menghapus data ini?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<a href="{{$dt->id}}/deleteCategory" class="btn btn-danger">Hapus</a>
+			</div> 
+		</div>
+	</div>
 </div>
 @endforeach
 
 @endsection
 
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+@if(session('errors'))
+<script type="text/javascript">
+	$('#tambahData').modal('show');
+</script>
+@endif
+
+<!-- SCRIPT VALIDASI FORM IN MODAL -->
 <script>
 	$(document).ready(function(){
 		$('#formSubmit').click(function(e){
@@ -227,10 +230,10 @@
 </script>
 
 <!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
           // Untuk Menentukan apakah ada perubahan atau tidak(KOREKSI)
-          var $form = $('#wkwk'),
+          var $form = $('.needs-validation'),
           origForm = $form.serialize();
           $('form :input').on('change input', function() {
             // $('.change-message').toggle($form.serialize() !== origForm);
@@ -241,4 +244,4 @@
           }
       });
       });
-  </script>
+  </script> -->

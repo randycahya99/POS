@@ -8,16 +8,17 @@
 <div class="container-fluid">
 
 
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary float-left">Kategori</h6>
 			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
-				Tambah Kategori
+				Tambah Unit
 			</button>
 		</div>
 		<div class="card-body">
-			<?php if($errors->any()): ?>
+			<!-- <?php if($errors->any()): ?>
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data kategori dikarenakan :</strong>
 				<ul>
@@ -32,16 +33,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php endif; ?>
+			<?php endif; ?> -->
 
-			<?php if(session('success')): ?>
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				<strong><?php echo e(session('success')); ?></strong> 
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<?php endif; ?>
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
@@ -64,9 +57,9 @@
 								<a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger btn-circle btn-sm hapusCategory">
 									<i class="fas fa-trash"></i>
 								</a>
-                                <button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData<?php echo e($dt['id']); ?>">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData<?php echo e($dt['id']); ?>">
+									<i class="fas fa-edit"></i>
+								</button>
 							</td>
 						</tr>
 						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -78,12 +71,13 @@
 </div>
 <!-- /.container-fluid -->
 
+
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Kategori</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -93,18 +87,18 @@
 				<form action="addCategory" method="POST">
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
-						<label>Nama Kategori</label>
-						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama kategori" />
+						<label>Nama Unit</label>
+						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama unit" />
 					</div>
 					<div class="form-group">
-						<label>Deskripsi Kategori</label>
-						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi kategori"></textarea>
+						<label>Deskripsi Unit</label>
+						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi unit"></textarea>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="batal">Batal</button>
-				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Kategori</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Unit</button>
 			</div>
 		</div>
 	</div>
@@ -168,7 +162,7 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary" id="change-message" disabled="true">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary" id="change-message">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -181,29 +175,38 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 <!-- Modal Hapus Data -->
 <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class="modal fade" id="hapusData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin akan menghapus data ini?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger">Hapus</a>
-            </div> 
-        </div>
-    </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Apakah Anda yakin akan menghapus data ini?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger">Hapus</a>
+			</div> 
+		</div>
+	</div>
 </div>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 <?php $__env->stopSection(); ?>
 
 <script src="<?php echo e(asset('assets/adminpos/vendor/jquery/jquery.min.js')); ?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+<?php if(session('errors')): ?>
+<script type="text/javascript">
+	$('#tambahData').modal('show');
+</script>
+<?php endif; ?>
+
+<!-- SCRIPT VALIDASI FORM IN MODAL -->
 <script>
 	$(document).ready(function(){
 		$('#formSubmit').click(function(e){
@@ -243,10 +246,10 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 </script>
 
 <!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
           // Untuk Menentukan apakah ada perubahan atau tidak(KOREKSI)
-          var $form = $('#wkwk'),
+          var $form = $('.needs-validation'),
           origForm = $form.serialize();
           $('form :input').on('change input', function() {
             // $('.change-message').toggle($form.serialize() !== origForm);
@@ -257,5 +260,5 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
           }
       });
       });
-  </script>
+  </script> -->
 <?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel\POS\resources\views/category.blade.php ENDPATH**/ ?>

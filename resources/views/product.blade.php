@@ -96,87 +96,12 @@
 </div>
 
 
-
-<!-- Modal Tambah Data -->
-{{-- <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-danger" style="display:none"></div>
-				<form action="/addProduct" method="POST">
-					@csrf
-					<div class="form-group">
-						<label>Kode Produk</label>
-						<input type="text" name="product_code" id="product_code" class="form-control" placeholder="Masukan kode produk">
-					</div>
-					<div class="form-group">
-						<label>Nama Produk</label>
-						<input type="text" name="product_name" id="product_name" class="form-control" placeholder="Masukan nama produk">
-					</div>
-					<div class="form-group">
-						<label>Produk Brand</label>
-						<input type="text" name="product_brand" id="product_brand" class="form-control" placeholder="Masukan nama produk brand">
-					</div>
-					<div class="form-group">
-						<label>Jumlah Stok</label>
-						<input type="text" name="stock" id="stock" class="form-control" placeholder="Masukan jumlah produk">
-					</div>
-					<div class="form-group">
-						<label>Harga Beli Produk</label>
-						<input type="text" name="purchase_price" id="purchase_price" class="form-control" placeholder="Masukan harga beli produk">
-					</div>
-					<div class="form-group">
-						<label>Harga Jual Produk</label>
-						<input type="text" name="selling_price" id="selling_price" class="form-control" placeholder="Masukan harga jual produk">
-					</div>
-					<div class="form-group">
-						<label>Satuan</label>
-						<select class="form-control" name="unit_id" id="unit_id">
-							<option value="" selected>Pilih Satuan Produk</option>
-
-							@foreach($unit as $units)
-
-							<option value="{{ $units->id }}">{{ $units->unit_name }}</option>
-
-							@endforeach
-
-						</select>
-					</div>
-					<div class="form-group">
-						<label>Satuan</label>
-						<select class="form-control" name="unit_id" id="unit_id">
-							<option value="" selected>Pilih Kategori Produk</option>
-
-							@foreach($category as $categories)
-
-							<option value="{{ $categories->id }}">{{ $categories->category_name }}</option>
-
-							@endforeach
-
-						</select>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="batal">Batal</button>
-				<button type="submit" class="btn btn-primary">Tambah Produk</button>
-			</div>
-		</div>
-	</div>
-</div> --}}
-
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Produk</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -252,7 +177,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Data Produk</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
