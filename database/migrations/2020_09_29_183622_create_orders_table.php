@@ -17,12 +17,12 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('invoice')->unique();
             $table->enum('status', ['pending', 'lunas'])->default('pending');
-            $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('total');
             $table->timestamps();
-            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
