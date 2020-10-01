@@ -61,6 +61,9 @@ class CategoryController extends Controller
 
         $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
         return response()->json(['success'=>'Data is successfully added']);
+
+        // Categories::create($request->all());
+        // return redirect('/category')->with('sukses', 'Data kategori berhasil ditambahkan.');
     }
 
     /**
