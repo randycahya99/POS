@@ -21,11 +21,11 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->integer('purchase_price');
             $table->integer('selling_price');
-            $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
-            $table->foreign('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

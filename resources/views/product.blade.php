@@ -67,9 +67,10 @@
 							<td>{{$products->stock}}</td>
 							<td>{{$products->purchase_price}}</td>
 							<td>{{$products->selling_price}}</td>
-							<td>{{$products->units->unit_name}}</td>
-							<td>{{$products->categories->category_name}}</td>
-							<td>
+							<td>{{ !empty($products->units) ? $products->units->unit_name:'' }}</td>
+							<td>{{ !empty($products->categories) ? $products->categories->category_name:'' }}</td>
+                            
+                            <td>
 								{{-- <form method="post" action="unit/{{ $products->id }}" class="d-inline">
 									@method('delete')
 									@csrf
@@ -212,7 +213,7 @@
 					<div class="form-group">
 						<label>Satuan</label>
 						<select class="form-control" name="unit_id" id="unit_id">
-							<option value="{{$products['unit_id']}}" selected>{{$products->units['unit_name']}}</option>
+							<option value="{{$products['unit_id']}}" selected>{{ !empty($products->units) ? $products->units['unit_name']:'' }}</option>
 
 							@foreach($unit as $units)
 
@@ -225,7 +226,7 @@
 					<div class="form-group">
 						<label>Kategori</label>
 						<select class="form-control" name="category_id" id="category_id">
-							<option value="{{$products['category_id']}}" selected>{{$products->categories['category_name']}}</option>
+							<option value="{{$products['category_id']}}" selected>{{ !empty($products->categories) ? $products->categories['category_name']:'' }}</option>
 
 							@foreach($category as $categories)
 
@@ -237,7 +238,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary">Edit</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
