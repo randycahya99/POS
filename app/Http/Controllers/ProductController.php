@@ -74,7 +74,7 @@ class ProductController extends Controller
 
         Products::create($request->all());
 
-        return redirect('/product')->with('success', 'Data produk berhasil ditambahkan.');
+        return redirect('/product')->with('sukses', 'Data produk berhasil ditambahkan.');
     }
 
     /**

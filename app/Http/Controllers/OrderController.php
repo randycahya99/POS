@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Categories;
+use App\Models\Customers;
+use App\Models\Orders;
+use App\Models\Products;
+use App\Models\Units;
+
 class OrderController extends Controller
 {
     /**
@@ -14,7 +20,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $product = Products::all();
+
+        return view('order', compact('product'));
     }
 
     /**

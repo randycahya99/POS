@@ -38,3 +38,6 @@ Route::get('product', 'ProductController@index');
 Route::post('addProduct', 'ProductController@addProduct');
 Route::post('{id}/updateProduct', 'ProductController@updateProduct');
 Route::get('{id}/deleteProduct', 'ProductController@deleteProduct');
+
+// Order
+Route::get('order', 'OrderController@index');

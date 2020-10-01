@@ -46,7 +46,7 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>No</th>
+							<th width="20">No</th>
 							<th>Nama Kategori</th>
 							<th>Deskripsi Kategori</th>
 							<th width="45">Aksi</th>
@@ -56,7 +56,7 @@
 					<tbody>
 						@foreach($data as $dt)
 						<tr>
-							<td>{{$loop->iteration}}</td>
+							<td align="center">{{$loop->iteration}}</td>
 							<td>{{$dt->category_name}}</td>
 							<td>{{$dt->descriptions}}</td>
 							<td>

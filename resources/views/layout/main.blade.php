@@ -75,7 +75,7 @@
           </a>
           <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="buttons.html">Order</a>
+              <a class="collapse-item" href="/order">Order</a>
               <a class="collapse-item" href="cards.html">Histori Order</a>
             </div>
           </div>

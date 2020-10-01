@@ -10,7 +10,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-			<h6 class="m-0 font-weight-bold text-primary float-left">Unit</h6>
+			<h6 class="m-0 font-weight-bold text-primary float-left">Produk</h6>
 			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
 				Tambah Produk
 			</button>
@@ -46,7 +46,7 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>No</th>
+							<th width="20">No</th>
 							<th>Kode Produk</th>
 							<th>Nama Produk</th>
 							<th>Stok</th>
@@ -61,14 +61,14 @@
 					<tbody>
 						@foreach($product as $products)
 						<tr>
-							<td>{{$loop->iteration}}</td>
+							<td align="center">{{$loop->iteration}}</td>
 							<td>{{$products->product_code}}</td>
 							<td>{{$products->product_name}}</td>
-							<td>{{$products->stock}}</td>
-							<td>{{$products->purchase_price}}</td>
-							<td>{{$products->selling_price}}</td>
-							<td>{{ !empty($products->units) ? $products->units->unit_name:'' }}</td>
-							<td>{{ !empty($products->categories) ? $products->categories->category_name:'' }}</td>
+							<td align="center">{{$products->stock}}</td>
+							<td>@currency($products->purchase_price)</td>
+							<td>@currency($products->selling_price)</td>
+							<td align="center">{{ !empty($products->units) ? $products->units->unit_name:'-' }}</td>
+							<td align="center">{{ !empty($products->categories) ? $products->categories->category_name:'-' }}</td>
                             
                             <td>
 								{{-- <form method="post" action="unit/{{ $products->id }}" class="d-inline">

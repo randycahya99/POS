@@ -1,6 +1,5 @@
 @extends('layout.main')
 
-
 @section('title','Unit')
 
 @section('container')
@@ -48,7 +47,7 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>No</th>
+							<th width="20">No</th>
 							<th>Nama Unit</th>
 							<th>Deskripsi Unit</th>
 							<th width="45">Aksi</th>
@@ -58,7 +57,7 @@
 					<tbody>
 						@foreach($data as $dt)
 						<tr>
-							<td>{{$loop->iteration}}</td>
+							<td align="center">{{$loop->iteration}}</td>
 							<td>{{$dt->unit_name}}</td>
 							<td>{{$dt->descriptions}}</td>
 							<td>
