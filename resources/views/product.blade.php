@@ -50,11 +50,9 @@
 							<th>Kode Produk</th>
 							<th>Nama Produk</th>
 							<th>Stok</th>
-							<th>Harga Beli</th>
 							<th>Harga Jual</th>
-							<th>Satuan</th>
 							<th>Kategori</th>
-							<th width="45">Aksi</th>
+							<th width="80">Aksi</th>
 						</tr>
 					</thead>
 
@@ -65,9 +63,7 @@
 							<td>{{$products->product_code}}</td>
 							<td>{{$products->product_name}}</td>
 							<td align="center">{{$products->stock}}</td>
-							<td>@currency($products->purchase_price)</td>
 							<td>@currency($products->selling_price)</td>
-							<td align="center">{{ !empty($products->units) ? $products->units->unit_name:'-' }}</td>
 							<td align="center">{{ !empty($products->categories) ? $products->categories->category_name:'-' }}</td>
 
 							<td>
@@ -81,6 +77,9 @@
 								</a>
 								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$products['id']}}">
 									<i class="fas fa-edit"></i>
+								</button>
+								<button class="btn btn-success btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#detailData{{$products['id']}}">
+									<i class="fas fa-eye"></i>
 								</button>
 								{{-- <a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$products['id']}}">
 									<i class="fas fa-edit"></i>
@@ -211,7 +210,7 @@
 					</div>
 					<div class="form-group">
 						<label>Kode Produk</label>
-						<input type="text" name="product_code" id="product_code" class="form-control" value="{{$products['product_code']}}" pattern="[a-zA-Z\s0-9]+"   required>
+						<input type="text" name="product_code" id="product_code" class="form-control" value="{{$products['product_code']}}" pattern="[a-zA-Z\s0-9]+"   disabled="">
 						<div class="invalid-feedback">Kode produk tidak valid</div>
 					</div>
 					<div class="form-group">
@@ -264,40 +263,108 @@
 </div>
 @endforeach
 
-
-<!-- Modal Hapus Data -->
+<!-- Modal DetailData -->
 @foreach($product as $products)
-<div class="modal fade" id="hapusData{{$products['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailData{{$products['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Detail Data Produk</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+
 			<div class="modal-body">
-				<p>Apakah Anda yakin akan menghapus data ini?</p>
+
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Nama Produk</p>
+						<div class="col-sm-8">
+							<p>: {{$products->product_name}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Kategori</p>
+						<div class="col-sm-8">
+							<p>: {{$products->categories['category_name']}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Kode Produk</p>
+						<div class="col-sm-8">
+							<p>: {{$products->product_code}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Unit / Satuan</p>
+						<div class="col-sm-8">
+							<p>: {{$products->units['unit_name']}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Produk Brand</p>
+						<div class="col-sm-8">
+							<p>: {{$products->product_brand}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Stok Produk</p>
+						<div class="col-sm-8">
+							<p>: {{$products->stock}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Harga Jual</p>
+						<div class="col-sm-8">
+							<p>: @currency($products->selling_price)</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<p class=" col-sm-4 font-weight-bold">Harga Beli</p>
+						<div class="col-sm-8">
+							<p>: @currency($products->purchase_price)</p>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<a href="{{$products->id}}/deleteProduct" class="btn btn-danger">Hapus</a>
-			</div> 
 		</div>
 	</div>
-</div>
-@endforeach
+	@endforeach
 
-@endsection
 
-<script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+	<!-- Modal Hapus Data -->
+	@foreach($product as $products)
+	<div class="modal fade" id="hapusData{{$products['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Apakah Anda yakin akan menghapus data ini?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+					<a href="{{$products->id}}/deleteProduct" class="btn btn-danger">Hapus</a>
+				</div> 
+			</div>
+		</div>
+	</div>
+	@endforeach
 
-<!-- SCRIPT VALIDASI FORM -->
-<script>
-	(function() {
-		'use strict';
-		window.addEventListener('load', function() {
+	@endsection
+
+	<script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+	<!-- SCRIPT VALIDASI FORM -->
+	<script>
+		(function() {
+			'use strict';
+			window.addEventListener('load', function() {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
@@ -311,7 +378,7 @@
                 	}, false);
                 });
             }, false);
-	})();
-</script>
+		})();
+	</script>
 
 
