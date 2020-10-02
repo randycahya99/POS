@@ -16,9 +16,9 @@ class CategoryController extends Controller
     public function index()
     {
         // Mengambil data dari database dengan model
-        $data = Categories::all();
+        $category = Categories::all();
 
-        return view('category', compact('data'));
+        return view('category', compact('category'));
     }
 
     /**
@@ -41,14 +41,19 @@ class CategoryController extends Controller
     {
         // $request->session()->flash('a', 'Data kategori berhasil ditambah');
         $request->validate([
+            'category_code' => 'required|alpha|max:10|unique:categories',
             'category_name' => 'required|string|unique:categories',
             'descriptions' => 'required|string'
         ], [
+            'category_code.required' => 'Kode kategori tidak boleh kosong',
+            'category_code.alpha' => 'Kode kategori harus berupa huruf',
+            'category_code.max' => 'Kode kategori tidak boleh lebih dari 10',
+            'category_code.unique' => 'Kode kategori sudah ada',
             'category_name.required' => 'Nama kategori tidak boleh kosong',
-            'category_name.string' => 'Nama kategori harus berupa huruf dan angka.',
-            'category_name.unique' => 'Nama kategori sudah ada.',
-            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong.',
-            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka.'
+            'category_name.string' => 'Nama kategori harus berupa huruf dan angka',
+            'category_name.unique' => 'Nama kategori sudah ada',
+            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong',
+            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka'
         ]);
 
         // if ($validator->fails())
@@ -100,14 +105,18 @@ class CategoryController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $request->validate([
+            'category_code' => 'required|alpha|max:10',
             'category_name' => 'required|string',
             'descriptions' => 'required|string'
         ], [
+            'category_code.required' => 'Kode kategori tidak boleh kosong',
+            'category_code.alpha' => 'Kode kategori harus berupa huruf',
+            'category_code.max' => 'Kode kategori tidak boleh lebih dari 10',
             'category_name.required' => 'Nama kategori tidak boleh kosong',
-            'category_name.string' => 'Nama kategori harus berupa huruf dan angka.',
-            'category_name.unique' => 'Nama kategori sudah ada.',
-            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong.',
-            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka.'
+            'category_name.string' => 'Nama kategori harus berupa huruf dan angka',
+            'category_name.unique' => 'Nama kategori sudah ada',
+            'descriptions.required' => 'Deskripsi kategori tidak boleh kosong',
+            'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka'
         ]);
 
         $category = Categories::find($id);
@@ -128,6 +137,6 @@ class CategoryController extends Controller
         $category = Categories::find($id);
         $category->delete();
 
-        return redirect('/category');
+        return redirect('category');
     }
 }

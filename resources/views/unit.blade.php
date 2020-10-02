@@ -55,24 +55,24 @@
 					</thead>
 
 					<tbody>
-						@foreach($data as $dt)
+						@foreach($unit as $units)
 						<tr>
 							<td align="center">{{$loop->iteration}}</td>
-							<td>{{$dt->unit_name}}</td>
-							<td>{{$dt->descriptions}}</td>
+							<td>{{$units->unit_name}}</td>
+							<td>{{$units->descriptions}}</td>
 							<td>
-								{{-- <form method="post" action="unit/{{ $dt->id }}" class="d-inline">
+								{{-- <form method="post" action="unit/{{ $units->id }}" class="d-inline">
 									@method('delete')
 									@csrf
 									<button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
 								</form>
-								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+								<a href="#" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editData{{$units['id']}}">
 									<i class="fas fa-edit"></i>
 								</a> --}}
-								<a href="{{$dt->id}}/deleteUnit" class="btn btn-danger btn-circle btn-sm hapusUnit">
+								<a href="{{$units->id}}/deleteUnit" class="btn btn-danger btn-circle btn-sm hapusUnit">
 									<i class="fas fa-trash"></i>
 								</a>
-								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$dt['id']}}">
+								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData{{$units['id']}}">
 									<i class="fas fa-edit"></i>
 								</button>
 							</td>
@@ -86,47 +86,6 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- Modal Tambah Data -->
-<!-- <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<div class="modal-body">
-				<form action="addUnit" method="POST">
-					@csrf
-					<div class="form-group">
-						<label for="exampleFormControlInput1">Nama Unit</label>
-						<input type="text" class="form-control @error('unit_name') is-invalid @enderror" value="{{ old('unit_name') }}"" id="exampleFormControlInput1" placeholder="Masukan nama unit" name="unit_name">
-						@error('unit_name')
-						<div class="invalid-feedback">
-							{{ $message }}
-						</div>
-						@enderror
-					</div>
-					<div class="form-group">
-						<label for="exampleFormControlTextarea1">Deskripsi Unit</label>
-						<textarea class="form-control @error('descriptions') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi unit">{{old('descriptions')}}</textarea>
-						@error('descriptions')
-						<div class="invalid-feedback">
-							{{ $message }}
-						</div>
-						@enderror
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary">Tambah</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div> -->
 
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -169,8 +128,8 @@
 </div>
 
 <!-- Modal Edit Data -->
-@foreach($data as $dt)
-<div class="modal fade" id="editData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($unit as $units)
+<div class="modal fade" id="editData{{$units['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -181,11 +140,11 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="{{$dt->id}}/updateUnit" method="POST" class="needs-validation" novalidate>
+				<form action="{{$units->id}}/updateUnit" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control" value="{{($dt->unit_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="unit_name"  pattern="[a-zA-Z\s0-9]+"   required>
+						<input type="text" class="form-control" value="{{($units->unit_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="unit_name"  pattern="[a-zA-Z\s0-9]+"   required>
 <!-- 						@error('category_name')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -195,7 +154,7 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required>{{$dt->descriptions}}</textarea>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required>{{$units->descriptions}}</textarea>
 <!-- 						@if ($errors->has('descriptions'))
 						<div class="invalid-feedback">
 							{{ $errors->first('descriptions') }}
@@ -216,8 +175,8 @@
 
 
 <!-- Modal Hapus Data -->
-@foreach($data as $dt)
-<div class="modal fade" id="hapusData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($unit as $units)
+<div class="modal fade" id="hapusData{{$units['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -231,7 +190,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<a href="{{$dt->id}}/deleteUnit" class="btn btn-danger">Hapus</a>
+				<a href="{{$units->id}}/deleteUnit" class="btn btn-danger">Hapus</a>
 			</div> 
 		</div>
 	</div>

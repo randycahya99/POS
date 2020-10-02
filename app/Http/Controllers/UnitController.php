@@ -16,9 +16,9 @@ class UnitController extends Controller
     public function index()
     {
         // Mengambil data dari database dengan model
-        $data = Units::all();
+        $unit = Units::all();
 
-        return view('unit', compact('data'));
+        return view('unit', compact('unit'));
     }
 
     /**

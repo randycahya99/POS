@@ -129,19 +129,19 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'category_id' => 'required'
         ], [
-            'product_name.required' => 'Nama produk harus diisi.',
-            'product_name.string' => 'Nama produk harus berupa String.',
-            'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
-            'product_name.unique' => 'Nama produk sudah ada.',
-            'product_brand.required' => 'Nama brand harus diisi.',
-            'product_brand.string' => 'Nama brand harus berupa String.',
+            'product_name.required' => 'Nama produk tidak boleh kosong',
+            'product_name.string' => 'Nama produk harus berupa String',
+            'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter',
+            'product_name.unique' => 'Nama produk sudah ada',
+            'product_brand.required' => 'Nama brand tidak boleh kosong',
+            'product_brand.string' => 'Nama brand harus berupa String',
             'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
-            'stock.required' => 'Jumlah stok harus diisi.',
-            'stock.numeric' => 'Jumlah stok harus berupa angka.',
-            'purchase_price.required' => 'Harga beli produk harus diisi.',
-            'selling_price.required' => 'Harga jual produk harus diisi.',
-            'unit_id.required' => 'Unit produk harus diisi.',
-            'category_id' => 'Kategori produk harus diisi.'
+            'stock.required' => 'Jumlah stok tidak boleh kosong',
+            'stock.numeric' => 'Jumlah stok harus berupa angka',
+            'purchase_price.required' => 'Harga beli produk tidak boleh kosong',
+            'selling_price.required' => 'Harga jual produk tidak boleh kosong',
+            'unit_id.required' => 'Unit produk tidak boleh kosong',
+            'category_id' => 'Kategori produk tidak boleh kosong'
         ]);
 
         $tes = Products::create([
@@ -195,27 +195,25 @@ class ProductController extends Controller
             'product_name' => 'required|string|max:100',
             'product_brand' => 'required|string|max:50',
             'stock' => 'required|numeric',
-            'purchase_price' => 'required|numeric',
-            'selling_price' => 'required|numeric',
+            'purchase_price' => 'required',
+            'selling_price' => 'required',
             'unit_id' => 'required',
             'category_id' => 'required'
         ], [
-            'product_code.required' => 'Kode produk harus diisi.',
+            'product_code.required' => 'Kode produk tidak boleh kosong',
             'product_code.string' => 'Kode produk harus berupa String.',
-            'product_name.required' => 'Nama produk harus diisi.',
+            'product_name.required' => 'Nama produk tidak boleh kosong',
             'product_name.string' => 'Nama produk harus berupa String.',
             'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
-            'product_brand.required' => 'Nama brand harus diisi.',
+            'product_brand.required' => 'Nama brand tidak boleh kosong',
             'product_brand.string' => 'Nama brand harus berupa String.',
             'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
-            'stock.required' => 'Jumlah stok harus diisi.',
+            'stock.required' => 'Jumlah stok tidak boleh kosong',
             'stock.numeric' => 'Jumlah stok harus berupa angka.',
-            'purchase_price.required' => 'Harga beli produk harus diisi.',
-            'purchase_price.numeric' => 'Harga beli harus berupa angka.',
-            'selling_price.required' => 'Harga jual produk harus diisi.',
-            'selling_price.numeric' => 'Harga jual harus berupa angka.',
-            'unit_id.required' => 'Unit produk harus diisi.',
-            'category_id.required' => 'Kategori produk harus diisi.'
+            'purchase_price.required' => 'Harga beli produk tidak boleh kosong',
+            'selling_price.required' => 'Harga jual produk tidak boleh kosong',
+            'unit_id.required' => 'Unit produk tidak boleh kosong',
+            'category_id.required' => 'Kategori produk tidak boleh kosong'
         ]);
 
         $product = Products::find($id);
