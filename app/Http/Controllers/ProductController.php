@@ -76,17 +76,11 @@ class ProductController extends Controller
 
         // Cek hasil inputan katgori sebelum disimpan buat di filter
         $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
-        // dd($productCode);
-
-
-        // dd($request->category_id);
 
         if ($request->category_id == '1') {
             // Membuat kode otomatis
-
             $urut = substr($productCode, 29, 1);
             $tambah = $urut + 1;
-            // dd($tambah);
             $tgl = date("d");
             $bln = date("m");
             $thn = date("y");
@@ -102,7 +96,6 @@ class ProductController extends Controller
         } elseif($request->category_id == '2') {
             $urut = substr($productCode, 29, 1);
             $tambah = $urut + 1;
-            // dd($tambah);
             $tgl = date("d");
             $bln = date("m");
             $thn = date("y");
@@ -117,7 +110,6 @@ class ProductController extends Controller
             }
         }
 
-        // dd($urut);
 
 
         $request->validate([
@@ -190,8 +182,8 @@ class ProductController extends Controller
      */
     public function updateProduct(Request $request, $id)
     {
+        
         $request->validate([
-            'product_code' => 'required|string',
             'product_name' => 'required|string|max:100',
             'product_brand' => 'required|string|max:50',
             'stock' => 'required|numeric',
@@ -200,7 +192,10 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'category_id' => 'required'
         ], [
+<<<<<<< HEAD
             'product_code.required' => 'Kode produk tidak boleh kosong',
+=======
+>>>>>>> 5d0092db250f61d44ca8ac922d0b64916ca62f1c
             'product_code.string' => 'Kode produk harus berupa String.',
             'product_name.required' => 'Nama produk tidak boleh kosong',
             'product_name.string' => 'Nama produk harus berupa String.',
