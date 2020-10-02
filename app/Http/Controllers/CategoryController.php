@@ -39,7 +39,8 @@ class CategoryController extends Controller
      */
     public function addCategory(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
+        // $request->session()->flash('a', 'Data kategori berhasil ditambah');
+        $request->validate([
             'category_name' => 'required|string|unique:categories',
             'descriptions' => 'required|string'
         ], [
@@ -50,20 +51,21 @@ class CategoryController extends Controller
             'descriptions.string' => 'Deskripsi kategori harus berupa huruf dan angka.'
         ]);
 
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
+        // if ($validator->fails())
+        // {
+        //     return response()->json(['errors'=>$validator->errors()->all()]);
+        // }
 
-        $input = $request->all();
+        // $input = $request->all();
         
-        Categories::create($input);
+        // Categories::create($input);
 
-        $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
-        return response()->json(['success'=>'Data is successfully added']);
+        
+        // return response()->json(['success'=>'Data is successfully added']);
 
-        // Categories::create($request->all());
-        // return redirect('/category')->with('sukses', 'Data kategori berhasil ditambahkan.');
+        Categories::create($request->all());
+        
+        return redirect('/category')->with('sukses', 'Data kategori berhasil ditambahkan.');
     }
 
     /**
@@ -111,6 +113,7 @@ class CategoryController extends Controller
         $category = Categories::find($id);
         $category->update($request->all());
 
+        // $request->session()->flash('b', 'Data kategori berhasil ditambah');
         return redirect('/category')->with('sukses', 'Data kategori berhasil diperbarui.');
     }
 

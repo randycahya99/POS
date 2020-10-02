@@ -39,7 +39,8 @@ class UnitController extends Controller
      */
     public function addUnit(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
+        // $validator = \Validator::make($request->all(), [
+        $request->validate([
             'unit_name' => 'required|string|unique:units',
             'descriptions' => 'required|string'
         ], [
@@ -50,17 +51,21 @@ class UnitController extends Controller
             'descriptions.string' => 'Deskripsi unit harus berupa angka dan huruf'
         ]);
 
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
+        // if ($validator->fails())
+        // {
+        //     return response()->json(['errors'=>$validator->errors()->all()]);
+        // }
 
-        $input = $request->all();
+        // $input = $request->all();
         
-        Units::create($input);
+        // Units::create($input);
 
-        $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
-        return response()->json(['success'=>'Data is successfully added']);
+        // $request->session()->flash('sukses', 'Data kategori berhasil ditambah');
+        // return response()->json(['success'=>'Data is successfully added']);
+
+        Units::create($request->all());
+        
+        return redirect('/unit')->with('sukses', 'Data unit berhasil ditambahkan.');
 
 
 

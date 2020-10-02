@@ -17,7 +17,7 @@
 			</button>
 		</div>
 		<div class="card-body">
-			@if ($errors->any())
+<!-- 			@if ($errors->any())
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data Unit dikarenakan :</strong>
 				<ul>
@@ -32,7 +32,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			@endif
+			@endif -->
 			
 <!-- 			<div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
 				<strong>Data berhasil ditambah</strong> 
@@ -139,22 +139,30 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-danger" style="display:none"></div>
-				<form action="addUnit" method="POST">
+				<!-- <div class="alert alert-danger" style="display:none"></div> -->
+				<form action="addUnit" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
-						<label>Nama Unit</label>
-						<input type="text" name="unit_name" id="unit_name" class="form-control" placeholder="Masukan nama unit" />
+						<label for="exampleFormControlInput1">Nama Unit</label>
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan nama unit" name="unit_name" value="{{ old('unit_name') }}" pattern="[a-zA-Z\s0-9]+" required>
+<!-- 						@error('category_name')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror -->
+						<div class="invalid-feedback">Nama Unit tidak valid</div>  
 					</div>
 					<div class="form-group">
-						<label>Deskripsi Unit</label>
-						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi unit"></textarea>
+						<label for="exampleFormControlTextarea1">Deskripsi Unit</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori" pattern="[a-zA-Z\s0-9]+"   required>{{ old('descriptions') }}</textarea>
+						<div class="invalid-feedback">Deskripsi unit tidak valid</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="batal">Batal</button>
+						<button type="submit" class="btn btn-primary">Tambah Unit</button>
 					</div>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="batal">Batal</button>
-				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Unit</button>
 			</div>
 		</div>
 	</div>
@@ -173,29 +181,31 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="{{$dt->id}}/updateUnit" method="POST" id="wkwk">
+				<form action="{{$dt->id}}/updateUnit" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
-						<label for="exampleFormControlInput1">Nama Unit</label>
-						<input type="text" class="form-control @error('unit_name') is-invalid @enderror" value="{{($dt->unit_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama Unit" name="unit_name">
-						@error('unit_name')
+						<label for="exampleFormControlInput1">Nama Kategori</label>
+						<input type="text" class="form-control" value="{{($dt->unit_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="unit_name"  pattern="[a-zA-Z\s0-9]+"   required>
+<!-- 						@error('category_name')
 						<div class="invalid-feedback">
 							{{ $message }}
 						</div>
-						@enderror
+						@enderror -->
+						<div class="invalid-feedback">Nama unit tidak valid</div> 
 					</div>
 					<div class="form-group">
-						<label for="exampleFormControlTextarea1">Deskripsi Unit</label>
-						<textarea class="form-control @error('descriptions') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi Unit">{{$dt->descriptions}}</textarea>
-						@if ($errors->has('descriptions'))
+						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required>{{$dt->descriptions}}</textarea>
+<!-- 						@if ($errors->has('descriptions'))
 						<div class="invalid-feedback">
 							{{ $errors->first('descriptions') }}
 						</div>
-						@endif
+						@endif -->
+						<div class="invalid-feedback">Deskripsi unit tidak valid</div>  
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary" id="change-message" disabled="true">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -231,7 +241,30 @@
 @endsection
 
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+<!-- SCRIPT VALIDASI FORM -->
 <script>
+        // Self-executing function
+        (function() {
+        	'use strict';
+        	window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                	form.addEventListener('submit', function(event) {
+                		if (form.checkValidity() === false) {
+                			event.preventDefault();
+                			event.stopPropagation();
+                		}
+                		form.classList.add('was-validated');
+                	}, false);
+                });
+            }, false);
+        })();
+    </script>
+<!-- <script>
 	$(document).ready(function(){
 		$('#formSubmit').click(function(e){
 			e.preventDefault();
@@ -267,10 +300,10 @@
 			});
 		});
 	});
-</script>
+</script> -->
 
 <!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
           // Untuk Menentukan apakah ada perubahan atau tidak(KOREKSI)
           var $form = $('#wkwk'),
@@ -284,4 +317,4 @@
           }
       });
       });
-  </script>
+  </script> -->

@@ -14,11 +14,11 @@
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary float-left">Kategori</h6>
 			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
-				Tambah Unit
+				Tambah Katetori
 			</button>
 		</div>
 		<div class="card-body">
-			<!-- <?php if($errors->any()): ?>
+<!-- 			<?php if($errors->any()): ?>
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data kategori dikarenakan :</strong>
 				<ul>
@@ -39,7 +39,7 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>No</th>
+							<th width="20">No</th>
 							<th>Nama Kategori</th>
 							<th>Deskripsi Kategori</th>
 							<th width="45">Aksi</th>
@@ -49,7 +49,7 @@
 					<tbody>
 						<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 						<tr>
-							<td><?php echo e($loop->iteration); ?></td>
+							<td align="center"><?php echo e($loop->iteration); ?></td>
 							<td><?php echo e($dt->category_name); ?></td>
 							<td><?php echo e($dt->descriptions); ?></td>
 							<td>
@@ -73,63 +73,23 @@
 
 
 <!-- Modal Tambah Data -->
-<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Unit</h5>
+				<h5 class="modal-title" id="exampleModalLabel1">Tambah Data Kategori</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-danger" style="display:none"></div>
-				<form action="addCategory" method="POST">
-					<?php echo csrf_field(); ?>
-					<div class="form-group">
-						<label>Nama Unit</label>
-						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama unit" />
-					</div>
-					<div class="form-group">
-						<label>Deskripsi Unit</label>
-						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi unit"></textarea>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Unit</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Modal Edit Data -->
-<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<div class="modal fade" id="editData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Data Kategori</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<div class="modal-body">
-				<form action="<?php echo e($dt->id); ?>/updateCategory" method="POST" id="wkwk">
+				<!-- <div class="alert alert-danger" style="display:none"></div> -->
+				<form action="addCategory" method="POST" class="needs-validation" novalidate>
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control <?php $__errorArgs = ['category_name'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(($dt->category_name)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name">
-						<?php $__errorArgs = ['category_name'];
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name" value="<?php echo e(old('category_name')); ?>" pattern="[a-zA-Z\s0-9]+" required>
+<!-- 						<?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -141,28 +101,72 @@ $message = $__bag->first($__errorArgs[0]); ?>
 						<?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>
+unset($__errorArgs, $__bag); ?> -->
+						<div class="invalid-feedback">Nama Kategori tidak valid</div>  
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control <?php $__errorArgs = ['descriptions'];
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori" pattern="[a-zA-Z\s0-9]+"   required><?php echo e(old('descriptions')); ?></textarea>
+						<div class="invalid-feedback">Deskripsi kategori tidak valid</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Tambah Unit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Edit Data -->
+<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade modal2" id="editData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel2">Edit Data Kategori</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<form action="<?php echo e($dt->id); ?>/updateCategory" method="POST" class="needs-validation" novalidate>
+					<?php echo csrf_field(); ?>
+					<div class="form-group">
+						<label for="exampleFormControlInput1">Nama Kategori</label>
+						<input type="text" class="form-control" value="<?php echo e(($dt->category_name)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name"  pattern="[a-zA-Z\s0-9]+"   required>
+<!-- 						<?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+$message = $__bag->first($__errorArgs[0]); ?>
+						<div class="invalid-feedback">
+							<?php echo e($message); ?>
+
+						</div>
+						<?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"><?php echo e($dt->descriptions); ?></textarea>
-						<?php if($errors->has('descriptions')): ?>
+unset($__errorArgs, $__bag); ?> -->
+						<div class="invalid-feedback">Nama Kategori tidak valid</div>  
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required><?php echo e($dt->descriptions); ?></textarea>
+<!-- 						<?php if($errors->has('descriptions')): ?>
 						<div class="invalid-feedback">
 							<?php echo e($errors->first('descriptions')); ?>
 
 						</div>
-						<?php endif; ?>
+						<?php endif; ?> -->
+						<div class="invalid-feedback">Deskripsi Kategori tidak valid</div>  
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary" id="change-message">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -200,14 +204,31 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 <script src="<?php echo e(asset('assets/adminpos/vendor/jquery/jquery.min.js')); ?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 
-<?php if(session('errors')): ?>
-<script type="text/javascript">
-	$('#tambahData').modal('show');
-</script>
-<?php endif; ?>
-
-<!-- SCRIPT VALIDASI FORM IN MODAL -->
+<!-- SCRIPT VALIDASI FORM -->
 <script>
+        // Self-executing function
+        (function() {
+        	'use strict';
+        	window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                	form.addEventListener('submit', function(event) {
+                		if (form.checkValidity() === false) {
+                			event.preventDefault();
+                			event.stopPropagation();
+                		}
+                		form.classList.add('was-validated');
+                	}, false);
+                });
+            }, false);
+        })();
+    </script>
+
+
+    <!-- SCRIPT VALIDASI FORM IN MODAL -->
+<!-- <script>
 	$(document).ready(function(){
 		$('#formSubmit').click(function(e){
 			e.preventDefault();
@@ -243,7 +264,7 @@ unset($__errorArgs, $__bag); ?>" id="exampleFormControlTextarea1" rows="3" name=
 			});
 		});
 	});
-</script>
+</script> -->
 
 <!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
 <!-- <script type="text/javascript">
