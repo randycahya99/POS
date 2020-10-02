@@ -19,6 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+        // $product = Products::select()->where('product_brand', 'Petani Unggulan')->orderBy('id', 'ASC')->get();
+        // dd($product);
         $product = Products::all();
         $unit = Units::all();
         $category = Categories::all();
