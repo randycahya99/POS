@@ -14,11 +14,11 @@
 		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 			<h6 class="m-0 font-weight-bold text-primary float-left">Kategori</h6>
 			<button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#tambahData">
-				Tambah Unit
+				Tambah Katetori
 			</button>
 		</div>
 		<div class="card-body">
-			<!-- @if ($errors->any())
+<!-- 			@if ($errors->any())
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data kategori dikarenakan :</strong>
 				<ul>
@@ -80,32 +80,40 @@
 
 
 <!-- Modal Tambah Data -->
-<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Unit</h5>
+				<h5 class="modal-title" id="exampleModalLabel1">Tambah Data Kategori</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-danger" style="display:none"></div>
-				<form action="addCategory" method="POST">
+				<!-- <div class="alert alert-danger" style="display:none"></div> -->
+				<form action="addCategory" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
-						<label>Nama Unit</label>
-						<input type="text" name="category_name" id="category_name" class="form-control" placeholder="Masukan nama unit" />
+						<label for="exampleFormControlInput1">Nama Kategori</label>
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name" value="{{ old('category_name') }}" pattern="[a-zA-Z\s0-9]+" required>
+<!-- 						@error('category_name')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror -->
+						<div class="invalid-feedback">Nama Kategori tidak valid</div>  
 					</div>
 					<div class="form-group">
-						<label>Deskripsi Unit</label>
-						<textarea name="descriptions" class="textarea form-control" id="descriptions" cols="40" rows="5" placeholder="Masukan deskripsi unit"></textarea>
+						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori" pattern="[a-zA-Z\s0-9]+"   required>{{ old('descriptions') }}</textarea>
+						<div class="invalid-feedback">Deskripsi kategori tidak valid</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Tambah Unit</button>
 					</div>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" id="formSubmit">Tambah Unit</button>
 			</div>
 		</div>
 	</div>
@@ -113,40 +121,42 @@
 
 <!-- Modal Edit Data -->
 @foreach($data as $dt)
-<div class="modal fade" id="editData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal2" id="editData{{$dt['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Data Kategori</h5>
+				<h5 class="modal-title" id="exampleModalLabel2">Edit Data Kategori</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
 			<div class="modal-body">
-				<form action="{{$dt->id}}/updateCategory" method="POST" id="wkwk">
+				<form action="{{$dt->id}}/updateCategory" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control @error('category_name') is-invalid @enderror" value="{{($dt->category_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name">
-						@error('category_name')
+						<input type="text" class="form-control" value="{{($dt->category_name)}}"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name"  pattern="[a-zA-Z\s0-9]+"   required>
+<!-- 						@error('category_name')
 						<div class="invalid-feedback">
 							{{ $message }}
 						</div>
-						@enderror
+						@enderror -->
+						<div class="invalid-feedback">Nama Kategori tidak valid</div>  
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control @error('descriptions') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori">{{$dt->descriptions}}</textarea>
-						@if ($errors->has('descriptions'))
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required>{{$dt->descriptions}}</textarea>
+<!-- 						@if ($errors->has('descriptions'))
 						<div class="invalid-feedback">
 							{{ $errors->first('descriptions') }}
 						</div>
-						@endif
+						@endif -->
+						<div class="invalid-feedback">Deskripsi Kategori tidak valid</div>  
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary" id="change-message">Simpan Perubahan</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 					</div>
 				</form>
 			</div>
@@ -184,14 +194,31 @@
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 
-@if(session('errors'))
-<script type="text/javascript">
-	$('#tambahData').modal('show');
-</script>
-@endif
-
-<!-- SCRIPT VALIDASI FORM IN MODAL -->
+<!-- SCRIPT VALIDASI FORM -->
 <script>
+        // Self-executing function
+        (function() {
+        	'use strict';
+        	window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                	form.addEventListener('submit', function(event) {
+                		if (form.checkValidity() === false) {
+                			event.preventDefault();
+                			event.stopPropagation();
+                		}
+                		form.classList.add('was-validated');
+                	}, false);
+                });
+            }, false);
+        })();
+    </script>
+
+
+    <!-- SCRIPT VALIDASI FORM IN MODAL -->
+<!-- <script>
 	$(document).ready(function(){
 		$('#formSubmit').click(function(e){
 			e.preventDefault();
@@ -227,7 +254,7 @@
 			});
 		});
 	});
-</script>
+</script> -->
 
 <!-- Disable Button simpan perubahan jika tidak ada perubahan pada form -->
 <!-- <script type="text/javascript">

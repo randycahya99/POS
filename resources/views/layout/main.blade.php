@@ -271,135 +271,144 @@
       <script src="{{asset('assets/adminpos/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
       <script src="{{asset('assets/adminpos/js/demo/datatables-demo.js')}}"></script>
 
-
-      @if(session('sukses'))    
+      @if($errors->any())
       <script type="text/javascript">
         Swal.fire(
-          'Berhasil',
-          '{{session('sukses')}}',
-          'success'
+          'Gagal',
+          '@foreach ($errors->all() as $error) <p>{{ $error }}</p>  @endforeach',
+          'error'
           )
         </script>
         @endif
 
-        <!-- SweetAlert HapusUnit -->
+        @if(session('sukses'))    
         <script type="text/javascript">
-          $('.hapusUnit').on('click', function(e){
-            e.preventDefault();
+          Swal.fire(
+            'Berhasil',
+            '{{session('sukses')}}',
+            'success'
+            )
+          </script>
+          @endif
 
-            const href = $(this).attr('href')
+          <!-- SweetAlert HapusUnit -->
+          <script type="text/javascript">
+            $('.hapusUnit').on('click', function(e){
+              e.preventDefault();
 
-            Swal.fire({
-              title: 'Ingin Menghapus Data?',
-              icon: 'info',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes'
-            }).then((result) => {
-              if (result.value) {
-               setTimeout(function(){ 
+              const href = $(this).attr('href')
 
-                 document.location.href = href;
+              Swal.fire({
+                title: 'Ingin Menghapus Data?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.value) {
+                 setTimeout(function(){ 
 
-               }, 900);
-               Swal.fire(
-                'Terhapus',
-                'Data Berhasil dihapus',
-                'success',
-                'showConfirmButton: false',
-                'timer: 2000'
-                )
-             }
-           })
-          })
-        </script>
+                   document.location.href = href;
 
-        <!-- SweetAlert HapusCategory -->
-        <script type="text/javascript">
-          $('.hapusCategory').on('click', function(e){
-            e.preventDefault();
+                 }, 900);
+                 Swal.fire(
+                  'Terhapus',
+                  'Data Berhasil dihapus',
+                  'success',
+                  'showConfirmButton: false',
+                  'timer: 2000'
+                  )
+               }
+             })
+            })
+          </script>
 
-            const href = $(this).attr('href')
+          <!-- SweetAlert HapusCategory -->
+          <script type="text/javascript">
+            $('.hapusCategory').on('click', function(e){
+              e.preventDefault();
 
-            Swal.fire({
-              title: 'Ingin Menghapus Data?',
-              icon: 'info',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes'
-            }).then((result) => {
-              if (result.value) {
-               setTimeout(function(){ 
+              const href = $(this).attr('href')
 
-                 document.location.href = href;
+              Swal.fire({
+                title: 'Ingin Menghapus Data?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.value) {
+                 setTimeout(function(){ 
 
-               }, 900);
-               Swal.fire(
-                'Terhapus',
-                'Data Berhasil dihapus',
-                'success',
-                'showConfirmButton: false',
-                'timer: 2000'
-                )
-             }
-           })
-          })
-        </script>
+                   document.location.href = href;
 
-        <!-- SweetAlert HapusProduct -->
-        <script type="text/javascript">
-          $('.hapusProduct').on('click', function(e){
-            e.preventDefault();
+                 }, 900);
+                 Swal.fire(
+                  'Terhapus',
+                  'Data Berhasil dihapus',
+                  'success',
+                  'showConfirmButton: false',
+                  'timer: 2000'
+                  )
+               }
+             })
+            })
+          </script>
 
-            const href = $(this).attr('href')
+          <!-- SweetAlert HapusProduct -->
+          <script type="text/javascript">
+            $('.hapusProduct').on('click', function(e){
+              e.preventDefault();
 
-            Swal.fire({
-              title: 'Ingin Menghapus Data?',
-              icon: 'info',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes'
-            }).then((result) => {
-              if (result.value) {
-               setTimeout(function(){ 
+              const href = $(this).attr('href')
 
-                 document.location.href = href;
+              Swal.fire({
+                title: 'Ingin Menghapus Data?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.value) {
+                 setTimeout(function(){ 
 
-               }, 900);
-               Swal.fire(
-                'Terhapus',
-                'Data Berhasil dihapus',
-                'success',
-                'showConfirmButton: false',
-                'timer: 2000'
-                )
-             }
-           })
-          })
-        </script>
+                   document.location.href = href;
 
-        <!-- Menambahkan fungsi Rupiah pada bagian produk-->
-        <script type="text/javascript">
-          var rupiah2 = document.getElementById('purchase_price');
-          rupiah2.addEventListener('keyup', function(e){
-            rupiah2.value = formatRupiah(this.value, 'Rp. ');
-          });
+                 }, 900);
+                 Swal.fire(
+                  'Terhapus',
+                  'Data Berhasil dihapus',
+                  'success',
+                  'showConfirmButton: false',
+                  'timer: 2000'
+                  )
+               }
+             })
+            })
+          </script>
 
-          var rupiah = document.getElementById('selling_price');
-          rupiah.addEventListener('keyup', function(e){
-            rupiah.value = formatRupiah(this.value, 'Rp. ');
-          });
+          <!-- Menambahkan fungsi Rupiah pada bagian produk-->
+          <script type="text/javascript">
+            var rupiah2 = document.getElementById('purchase_price');
+            rupiah2.addEventListener('keyup', function(e){
+              rupiah2.value = formatRupiah(this.value, 'Rp. ');
+            });
 
-          /* Fungsi formatRupiah */
-          function formatRupiah(angka, prefix){
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split       = number_string.split(','),
-            sisa        = split[0].length % 3,
-            rupiah        = split[0].substr(0, sisa),
-            ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
+            var rupiah = document.getElementById('selling_price');
+            rupiah.addEventListener('keyup', function(e){
+              rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix){
+              var number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split       = number_string.split(','),
+              sisa        = split[0].length % 3,
+              rupiah        = split[0].substr(0, sisa),
+              ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
 
           // tambahkan titik jika yang di input sudah menjadi angka ribuan
           if(ribuan){

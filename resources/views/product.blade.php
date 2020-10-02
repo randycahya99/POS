@@ -16,7 +16,7 @@
 			</button>
 		</div>
 		<div class="card-body">
-			@if ($errors->any())
+<!-- 			@if ($errors->any())
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Gagal menambahkan data Produk dikarenakan :</strong>
 				<ul>
@@ -32,7 +32,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			@endif
+			@endif -->
 
 <!-- 			@if(session('success'))
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -69,8 +69,8 @@
 							<td>@currency($products->selling_price)</td>
 							<td align="center">{{ !empty($products->units) ? $products->units->unit_name:'-' }}</td>
 							<td align="center">{{ !empty($products->categories) ? $products->categories->category_name:'-' }}</td>
-                            
-                            <td>
+
+							<td>
 								{{-- <form method="post" action="unit/{{ $products->id }}" class="d-inline">
 									@method('delete')
 									@csrf
@@ -108,48 +108,12 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="addProduct" method="POST">
+				<form action="addProduct" method="POST" class="needs-validation" novalidate>
 					@csrf
-					<div class="form-group">
-						<label>Kode Produk</label>
-						<input type="text" name="product_code" id="product_code" class="form-control" placeholder="Masukan kode produk">
-					</div>
-					<div class="form-group">
-						<label>Nama Produk</label>
-						<input type="text" name="product_name" id="product_name" class="form-control" placeholder="Masukan nama produk">
-					</div>
-					<div class="form-group">
-						<label>Produk Brand</label>
-						<input type="text" name="product_brand" id="product_brand" class="form-control" placeholder="Masukan nama produk brand">
-					</div>
-					<div class="form-group">
-						<label>Jumlah Stok</label>
-						<input type="text" name="stock" id="stock" class="form-control" placeholder="Masukan jumlah produk">
-					</div>
-					<div class="form-group">
-						<label>Harga Beli Produk</label>
-						<input type="text" name="purchase_price" id="purchase_price" class="form-control" placeholder="Masukan harga beli produk">
-					</div>
-					<div class="form-group">
-						<label>Harga Jual Produk</label>
-						<input type="text" name="selling_price" id="selling_price" class="form-control" placeholder="Masukan harga jual produk">
-					</div>
-					<div class="form-group">
-						<label>Satuan</label>
-						<select class="form-control" name="unit_id" id="unit_id">
-							<option value="" selected>Pilih Satuan Produk</option>
 
-							@foreach($unit as $units)
-
-							<option value="{{ $units->id }}">{{ $units->unit_name }}</option>
-
-							@endforeach
-
-						</select>
-					</div>
 					<div class="form-group">
 						<label>Kategori</label>
-						<select class="form-control" name="category_id" id="category_id">
+						<select class="form-control" name="category_id" id="category_id" required="">
 							<option value="" selected>Pilih Kategori Produk</option>
 
 							@foreach($category as $categories)
@@ -159,6 +123,51 @@
 							@endforeach
 
 						</select>
+						<div class="invalid-feedback">Kategori produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						
+						<input type="hidden" name="product_code" id="product_code" class="form-control" placeholder="Masukan kode produk" pattern="[a-zA-Z\s0-9]+">
+						<div class="invalid-feedback">Kode produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Nama Produk</label>
+						<input type="text" name="product_name" id="product_name" class="form-control" placeholder="Masukan nama produk" pattern="[a-zA-Z\s0-9]+"   required>
+						<div class="invalid-feedback">Nama produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Produk Brand</label>
+						<input type="text" name="product_brand" id="product_brand" class="form-control" placeholder="Masukan nama produk brand" pattern="[a-zA-Z\s0-9]+"   required>
+						<div class="invalid-feedback">Nama produk brand tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Satuan</label>
+						<select class="form-control" name="unit_id" id="unit_id" required="">
+							<option value="" selected>Pilih Satuan Produk</option>
+
+							@foreach($unit as $units)
+
+							<option value="{{ $units->id }}">{{ $units->unit_name }}</option>
+
+							@endforeach
+
+						</select>
+						<div class="invalid-feedback">Satuan produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Jumlah Stok</label>
+						<input type="number" name="stock" id="stock" class="form-control" placeholder="Masukan jumlah produk" required>
+						<div class="invalid-feedback">Jumlah stok tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Harga Beli Produk</label>
+						<input type="text" name="purchase_price" id="purchase_price" class="form-control" placeholder="Masukan harga beli produk" required>
+						<div class="invalid-feedback">Harga beli produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Harga Jual Produk</label>
+						<input type="text" name="selling_price" id="selling_price" class="form-control" placeholder="Masukan harga jual produk" required>
+						<div class="invalid-feedback">Harga jual produk tidak valid</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -184,48 +193,11 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="{{$products->id}}/updateProduct" method="POST">
+				<form action="{{$products->id}}/updateProduct" method="POST" class="needs-validation" novalidate>
 					@csrf
 					<div class="form-group">
-						<label>Kode Produk</label>
-						<input type="text" name="product_code" id="product_code" class="form-control" value="{{$products['product_code']}}">
-					</div>
-					<div class="form-group">
-						<label>Nama Produk</label>
-						<input type="text" name="product_name" id="product_name" class="form-control" value="{{$products['product_name']}}">
-					</div>
-					<div class="form-group">
-						<label>Produk Brand</label>
-						<input type="text" name="product_brand" id="product_brand" class="form-control" value="{{$products['product_brand']}}">
-					</div>
-					<div class="form-group">
-						<label>Jumlah Stok</label>
-						<input type="text" name="stock" id="stock" class="form-control" value="{{$products['stock']}}">
-					</div>
-					<div class="form-group">
-						<label>Harga Beli Produk</label>
-						<input type="text" name="purchase_price" id="purchase_price" class="form-control" value="{{$products['purchase_price']}}">
-					</div>
-					<div class="form-group">
-						<label>Harga Jual Produk</label>
-						<input type="text" name="selling_price" id="selling_price" class="form-control" value="{{$products['selling_price']}}">
-					</div>
-					<div class="form-group">
-						<label>Satuan</label>
-						<select class="form-control" name="unit_id" id="unit_id">
-							<option value="{{$products['unit_id']}}" selected>{{ !empty($products->units) ? $products->units['unit_name']:'' }}</option>
-
-							@foreach($unit as $units)
-
-							<option value="{{ $units->id }}">{{ $units->unit_name }}</option>
-
-							@endforeach
-
-						</select>
-					</div>
-					<div class="form-group">
 						<label>Kategori</label>
-						<select class="form-control" name="category_id" id="category_id">
+						<select class="form-control" name="category_id" id="category_id" required="">
 							<option value="{{$products['category_id']}}" selected>{{ !empty($products->categories) ? $products->categories['category_name']:'' }}</option>
 
 							@foreach($category as $categories)
@@ -235,6 +207,51 @@
 							@endforeach
 
 						</select>
+						<div class="invalid-feedback">Kategori tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Kode Produk</label>
+						<input type="text" name="product_code" id="product_code" class="form-control" value="{{$products['product_code']}}" pattern="[a-zA-Z\s0-9]+"   required>
+						<div class="invalid-feedback">Kode produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Nama Produk</label>
+						<input type="text" name="product_name" id="product_name" class="form-control" value="{{$products['product_name']}}" pattern="[a-zA-Z\s0-9]+"   required>
+						<div class="invalid-feedback">Nama produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Produk Brand</label>
+						<input type="text" name="product_brand" id="product_brand" class="form-control" value="{{$products['product_brand']}}" pattern="[a-zA-Z\s0-9]+"   required>
+						<div class="invalid-feedback">Nama produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Jumlah Stok</label>
+						<input type="text" name="stock" id="stock" class="form-control" value="{{$products['stock']}}" required>
+						<div class="invalid-feedback">Jumlah stok tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Satuan</label>
+						<select class="form-control" name="unit_id" id="unit_id" required="">
+							<option value="{{$products['unit_id']}}" selected>{{ !empty($products->units) ? $products->units['unit_name']:'' }}</option>
+
+							@foreach($unit as $units)
+
+							<option value="{{ $units->id }}">{{ $units->unit_name }}</option>
+
+							@endforeach
+
+						</select>
+						<div class="invalid-feedback">Satuan produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Harga Beli Produk</label>
+						<input type="text" name="purchase_price" id="purchase_price" class="form-control" value="{{$products['purchase_price']}}" required>
+						<div class="invalid-feedback">Harga beli produk tidak valid</div>
+					</div>
+					<div class="form-group">
+						<label>Harga Jual Produk</label>
+						<input type="text" name="selling_price" id="selling_price" class="form-control" value="{{$products['selling_price']}}" required>
+						<div class="invalid-feedback">Harga jual produk tidak valid</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -272,5 +289,29 @@
 @endforeach
 
 @endsection
+
+<script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
+<!-- SCRIPT VALIDASI FORM -->
+<script>
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                	form.addEventListener('submit', function(event) {
+                		if (form.checkValidity() === false) {
+                			event.preventDefault();
+                			event.stopPropagation();
+                		}
+                		form.classList.add('was-validated');
+                	}, false);
+                });
+            }, false);
+	})();
+</script>
 
 

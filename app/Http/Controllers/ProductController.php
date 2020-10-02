@@ -19,6 +19,26 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+        // // Membuat kode otomatis
+        // $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        // $urut = substr($productCode, 26, 1);
+        // $tambah = $urut + 1;
+        // // dd($tambah);
+        // $tgl = date("d");
+        // $bln = date("m");
+        // $thn = date("y");
+
+        // if (strlen($tambah) == 1) 
+        // {
+        //     $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+        // }elseif (strlen($tambah) == 2) {
+        //     $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+        // }else{
+        //     $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+        // }
+
+
         $product = Products::all();
         $unit = Units::all();
         $category = Categories::all();
@@ -54,11 +74,53 @@ class ProductController extends Controller
         $jual1 = $jual;
         $jual1 = Str::replaceArray('Rp', ['','','',''], $jual1);
 
+        // Cek hasil inputan katgori sebelum disimpan buat di filter
+        $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        // dd($productCode);
 
-        
+
+        // dd($request->category_id);
+
+        if ($request->category_id == '1') {
+            // Membuat kode otomatis
+
+            $urut = substr($productCode, 29, 1);
+            $tambah = $urut + 1;
+            // dd($tambah);
+            $tgl = date("d");
+            $bln = date("m");
+            $thn = date("y");
+
+            if (strlen($tambah) == 1) 
+            {
+                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+            }elseif (strlen($tambah) == 2) {
+                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+            }else{
+                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
+            }
+        } elseif($request->category_id == '2') {
+            $urut = substr($productCode, 29, 1);
+            $tambah = $urut + 1;
+            // dd($tambah);
+            $tgl = date("d");
+            $bln = date("m");
+            $thn = date("y");
+
+            if (strlen($tambah) == 1) 
+            {
+                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
+            }elseif (strlen($tambah) == 2) {
+                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
+            }else{
+                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
+            }
+        }
+
+        // dd($urut);
+
 
         $request->validate([
-            'product_code' => 'required|string|unique:products',
             'product_name' => 'required|string|max:100|unique:products',
             'product_brand' => 'required|string|max:50',
             'stock' => 'required|numeric',
@@ -67,9 +129,6 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'category_id' => 'required'
         ], [
-            'product_code.required' => 'Kode produk harus diisi.',
-            'product_code.string' => 'Kode produk harus berupa String.',
-            'product_code.unique' => 'Kode produk sudah ada.',
             'product_name.required' => 'Nama produk harus diisi.',
             'product_name.string' => 'Nama produk harus berupa String.',
             'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter.',
@@ -86,7 +145,7 @@ class ProductController extends Controller
         ]);
 
         $tes = Products::create([
-            'product_code' => $request->product_code,
+            'product_code' => $format,
             'product_name' => $request->product_name,
             'product_brand' => $request->product_brand,
             'stock' => $request->stock,
