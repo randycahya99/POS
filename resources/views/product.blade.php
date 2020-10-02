@@ -126,8 +126,8 @@
 						<div class="invalid-feedback">Kategori produk tidak valid</div>
 					</div>
 					<div class="form-group">
-						<label>Kode Produk</label>
-						<input type="text" name="product_code" id="product_code" class="form-control" placeholder="Masukan kode produk" pattern="[a-zA-Z\s0-9]+"   required>
+						
+						<input type="hidden" name="product_code" id="product_code" class="form-control" placeholder="Masukan kode produk" pattern="[a-zA-Z\s0-9]+">
 						<div class="invalid-feedback">Kode produk tidak valid</div>
 					</div>
 					<div class="form-group">
