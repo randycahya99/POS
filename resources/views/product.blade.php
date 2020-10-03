@@ -4,6 +4,9 @@
 
 @section('container')
 
+
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -244,12 +247,12 @@
 					</div>
 					<div class="form-group">
 						<label>Harga Beli Produk</label>
-						<input type="text" name="purchase_price" id="purchase_price" class="form-control" value="{{$products['purchase_price']}}" required>
+						<input type="text" name="purchase_price" id="purchase_price2" class="form-control" value="@currency($products['purchase_price'])" required>
 						<div class="invalid-feedback">Harga beli produk tidak valid</div>
 					</div>
 					<div class="form-group">
 						<label>Harga Jual Produk</label>
-						<input type="text" name="selling_price" id="selling_price" class="form-control" value="{{$products['selling_price']}}" required>
+						<input type="text" name="selling_price" id="selling_price2" class="form-control" value="@currency($products['selling_price'])" required>
 						<div class="invalid-feedback">Harga jual produk tidak valid</div>
 					</div>
 					<div class="modal-footer">

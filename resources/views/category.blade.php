@@ -97,7 +97,7 @@
 					@csrf
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Kode Kategori</label>
-						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan kode kategori" name="category_code" value="{{ old('category_code') }}" pattern="[a-zA-Z\s0-9]+" required>
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan kode kategori" name="category_code" value="{{ old('category_code') }}" pattern="[a-zA-Z\s0-9]+" maxlength="3" required>
 <!-- 					@error('category_code')
 						<div class="invalid-feedback">
 							{{ $message }}

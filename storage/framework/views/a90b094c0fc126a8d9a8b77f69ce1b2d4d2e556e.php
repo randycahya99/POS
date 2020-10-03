@@ -40,6 +40,7 @@
 					<thead>
 						<tr>
 							<th width="20">No</th>
+							<th>Kode Kategori</th>
 							<th>Nama Kategori</th>
 							<th>Deskripsi Kategori</th>
 							<th width="45">Aksi</th>
@@ -47,17 +48,18 @@
 					</thead>
 
 					<tbody>
-						<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						<?php $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categories): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 						<tr>
 							<td align="center"><?php echo e($loop->iteration); ?></td>
-							<td><?php echo e($dt->category_name); ?></td>
-							<td><?php echo e($dt->descriptions); ?></td>
+							<td><?php echo e($categories->category_code); ?></td>
+							<td><?php echo e($categories->category_name); ?></td>
+							<td><?php echo e($categories->descriptions); ?></td>
 							<td>
 								
-								<a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger btn-circle btn-sm hapusCategory">
+								<a href="<?php echo e($categories->id); ?>/deleteCategory" class="btn btn-danger btn-circle btn-sm hapusCategory">
 									<i class="fas fa-trash"></i>
 								</a>
-								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData<?php echo e($dt['id']); ?>">
+								<button class="btn btn-primary btn-circle btn-sm" title="Edit" data-toggle="modal" data-target="#editData<?php echo e($categories['id']); ?>">
 									<i class="fas fa-edit"></i>
 								</button>
 							</td>
@@ -87,9 +89,27 @@
 				<form action="addCategory" method="POST" class="needs-validation" novalidate>
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
+						<label for="exampleFormControlInput1">Kode Kategori</label>
+						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan kode kategori" name="category_code" value="<?php echo e(old('category_code')); ?>" pattern="[a-zA-Z\s0-9]+" maxlength="3" required>
+<!-- 					<?php $__errorArgs = ['category_code'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+						<div class="invalid-feedback">
+							<?php echo e($message); ?>
+
+						</div>
+						<?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> -->
+						<div class="invalid-feedback">Kode Kategori tidak valid</div>  
+					</div>
+					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
 						<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name" value="<?php echo e(old('category_name')); ?>" pattern="[a-zA-Z\s0-9]+" required>
-<!-- 						<?php $__errorArgs = ['category_name'];
+<!-- 					<?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -121,8 +141,8 @@ unset($__errorArgs, $__bag); ?> -->
 </div>
 
 <!-- Modal Edit Data -->
-<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<div class="modal fade modal2" id="editData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<?php $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categories): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade modal2" id="editData<?php echo e($categories['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -133,11 +153,29 @@ unset($__errorArgs, $__bag); ?> -->
 			</div>
 
 			<div class="modal-body">
-				<form action="<?php echo e($dt->id); ?>/updateCategory" method="POST" class="needs-validation" novalidate>
+				<form action="<?php echo e($categories->id); ?>/updateCategory" method="POST" class="needs-validation" novalidate>
 					<?php echo csrf_field(); ?>
 					<div class="form-group">
+						<label for="exampleFormControlInput1">Kode Kategori</label>
+						<input type="text" class="form-control" value="<?php echo e(($categories->category_code)); ?>"" id="exampleFormControlInput1" placeholder="Masukan kode kategori" name="category_code"  pattern="[a-zA-Z\s0-9]+"   required>
+<!-- 						<?php $__errorArgs = ['category_code'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+						<div class="invalid-feedback">
+							<?php echo e($message); ?>
+
+						</div>
+						<?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> -->
+						<div class="invalid-feedback">Kode Kategori tidak valid</div>  
+					</div>
+					<div class="form-group">
 						<label for="exampleFormControlInput1">Nama Kategori</label>
-						<input type="text" class="form-control" value="<?php echo e(($dt->category_name)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name"  pattern="[a-zA-Z\s0-9]+"   required>
+						<input type="text" class="form-control" value="<?php echo e(($categories->category_name)); ?>"" id="exampleFormControlInput1" placeholder="Masukan nama kategori" name="category_name"  pattern="[a-zA-Z\s0-9]+"   required>
 <!-- 						<?php $__errorArgs = ['category_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -155,7 +193,7 @@ unset($__errorArgs, $__bag); ?> -->
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required><?php echo e($dt->descriptions); ?></textarea>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descriptions" placeholder="Masukan deskripsi kategori"  pattern="[a-zA-Z\s0-9]+"   required><?php echo e($categories->descriptions); ?></textarea>
 <!-- 						<?php if($errors->has('descriptions')): ?>
 						<div class="invalid-feedback">
 							<?php echo e($errors->first('descriptions')); ?>
@@ -177,8 +215,8 @@ unset($__errorArgs, $__bag); ?> -->
 
 
 <!-- Modal Hapus Data -->
-<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<div class="modal fade" id="hapusData<?php echo e($dt['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categories): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="modal fade" id="hapusData<?php echo e($categories['id']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -192,7 +230,7 @@ unset($__errorArgs, $__bag); ?> -->
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<a href="<?php echo e($dt->id); ?>/deleteCategory" class="btn btn-danger">Hapus</a>
+				<a href="<?php echo e($categories->id); ?>/deleteCategory" class="btn btn-danger">Hapus</a>
 			</div> 
 		</div>
 	</div>
