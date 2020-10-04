@@ -76,74 +76,71 @@ class ProductController extends Controller
         $jual1 = Str::replaceArray('Rp', ['','','',''], $jual1);
 
         // Cek hasil inputan katgori sebelum disimpan buat di filter
-        // $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        $a = $request->category_id;
+        $categoryProduct = Categories::where('id',$a)->firstOrFail();
+   
 
-        // $categoryCode = Categories::all();
-        // $totalCategory = $categoryCode->count();
-        // $categoryCode = $categoryCode->toArray();
-
-        // dd($categoryCode->id);
 
         
+            // Membuat kode otomatis
+            $urut = substr($productCode, 29, 1);
+            $tambah = $urut + 1;
+            $tgl = date("d");
+            $bln = date("m");
+            $thn = date("y");
 
-        // if ($request->category_id == $es) {
-        //     // Membuat kode otomatis
-        //     $urut = substr($productCode, 29, 1);
-        //     $tambah = $urut + 1;
-        //     $tgl = date("d");
-        //     $bln = date("m");
-        //     $thn = date("y");
-
-        //     if (strlen($tambah) == 1) 
-        //     {
-        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
-        //     }elseif (strlen($tambah) == 2) {
-        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
-        //     }else{
-        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
-        //     }
-        // }
+            if (strlen($tambah) == 1) 
+            {
+                $format = $categoryProduct->category_code.$tgl.$bln.$thn."00".$tambah;
+            }elseif (strlen($tambah) == 2) {
+                $format = $categoryProduct->category_code.$tgl.$bln.$thn."00".$tambah;
+            }else{
+                $format = $categoryProduct->category_code.$tgl.$bln.$thn."00".$tambah;
+            }
 
 
 
-        $request->validate([
-            'product_name' => 'required|string|max:100|unique:products',
-            'product_brand' => 'required|string|max:50',
-            'stock' => 'required|numeric',
-            'purchase_price' => 'required',
-            'selling_price' => 'required',
-            'unit_id' => 'required',
-            'category_id' => 'required'
-        ], [
-            'product_name.required' => 'Nama produk tidak boleh kosong',
-            'product_name.string' => 'Nama produk harus berupa String',
-            'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter',
-            'product_name.unique' => 'Nama produk sudah ada',
-            'product_brand.required' => 'Nama brand tidak boleh kosong',
-            'product_brand.string' => 'Nama brand harus berupa String',
-            'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
-            'stock.required' => 'Jumlah stok tidak boleh kosong',
-            'stock.numeric' => 'Jumlah stok harus berupa angka',
-            'purchase_price.required' => 'Harga beli produk tidak boleh kosong',
-            'selling_price.required' => 'Harga jual produk tidak boleh kosong',
-            'unit_id.required' => 'Unit produk tidak boleh kosong',
-            'category_id' => 'Kategori produk tidak boleh kosong'
-        ]);
-
-        $tes = Products::create([
-            'product_code' => $format,
-            'product_name' => $request->product_name,
-            'product_brand' => $request->product_brand,
-            'stock' => $request->stock,
-            'purchase_price' => $beli1,
-            'selling_price' => $jual1,
-            'unit_id' => $request->unit_id,
-            'category_id' => $request->category_id
-        ]);
 
 
-        return redirect('/product')->with('sukses', 'Data produk berhasil ditambahkan.');
-    }
+     $request->validate([
+        'product_name' => 'required|string|max:100|unique:products',
+        'product_brand' => 'required|string|max:50',
+        'stock' => 'required|numeric',
+        'purchase_price' => 'required',
+        'selling_price' => 'required',
+        'unit_id' => 'required',
+        'category_id' => 'required'
+    ], [
+        'product_name.required' => 'Nama produk tidak boleh kosong',
+        'product_name.string' => 'Nama produk harus berupa String',
+        'product_name.max' => 'Nama produk tidak boleh lebih dari 100 karakter',
+        'product_name.unique' => 'Nama produk sudah ada',
+        'product_brand.required' => 'Nama brand tidak boleh kosong',
+        'product_brand.string' => 'Nama brand harus berupa String',
+        'product_brand.max' => 'Nama brand tidak boleh lebih dari 50 karakter',
+        'stock.required' => 'Jumlah stok tidak boleh kosong',
+        'stock.numeric' => 'Jumlah stok harus berupa angka',
+        'purchase_price.required' => 'Harga beli produk tidak boleh kosong',
+        'selling_price.required' => 'Harga jual produk tidak boleh kosong',
+        'unit_id.required' => 'Unit produk tidak boleh kosong',
+        'category_id' => 'Kategori produk tidak boleh kosong'
+    ]);
+
+     $tes = Products::create([
+        'product_code' => $format,
+        'product_name' => $request->product_name,
+        'product_brand' => $request->product_brand,
+        'stock' => $request->stock,
+        'purchase_price' => $beli1,
+        'selling_price' => $jual1,
+        'unit_id' => $request->unit_id,
+        'category_id' => $request->category_id
+    ]);
+
+
+     return redirect('/product')->with('sukses', 'Data produk berhasil ditambahkan.');
+ }
 
     /**
      * Display the specified resource.
@@ -176,7 +173,7 @@ class ProductController extends Controller
      */
     public function updateProduct(Request $request, $id)
     {
-        
+
         $request->validate([
             'product_name' => 'required|string|max:100',
             'product_brand' => 'required|string|max:50',
