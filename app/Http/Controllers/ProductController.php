@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Products;
 use App\Models\Units;
@@ -75,40 +76,33 @@ class ProductController extends Controller
         $jual1 = Str::replaceArray('Rp', ['','','',''], $jual1);
 
         // Cek hasil inputan katgori sebelum disimpan buat di filter
-        $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        // $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
 
-        if ($request->category_id == '1') {
-            // Membuat kode otomatis
-            $urut = substr($productCode, 29, 1);
-            $tambah = $urut + 1;
-            $tgl = date("d");
-            $bln = date("m");
-            $thn = date("y");
+        // $categoryCode = Categories::all();
+        // $totalCategory = $categoryCode->count();
+        // $categoryCode = $categoryCode->toArray();
 
-            if (strlen($tambah) == 1) 
-            {
-                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
-            }elseif (strlen($tambah) == 2) {
-                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
-            }else{
-                $format = "TBK".$tgl.$bln.$thn."00".$tambah;
-            }
-        } elseif($request->category_id == '2') {
-            $urut = substr($productCode, 29, 1);
-            $tambah = $urut + 1;
-            $tgl = date("d");
-            $bln = date("m");
-            $thn = date("y");
+        // dd($categoryCode->id);
 
-            if (strlen($tambah) == 1) 
-            {
-                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
-            }elseif (strlen($tambah) == 2) {
-                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
-            }else{
-                $format = "PPR".$tgl.$bln.$thn."00".$tambah;
-            }
-        }
+        
+
+        // if ($request->category_id == $es) {
+        //     // Membuat kode otomatis
+        //     $urut = substr($productCode, 29, 1);
+        //     $tambah = $urut + 1;
+        //     $tgl = date("d");
+        //     $bln = date("m");
+        //     $thn = date("y");
+
+        //     if (strlen($tambah) == 1) 
+        //     {
+        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
+        //     }elseif (strlen($tambah) == 2) {
+        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
+        //     }else{
+        //         $format = $doger.$tgl.$bln.$thn."00".$tambah;
+        //     }
+        // }
 
 
 
@@ -192,10 +186,7 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'category_id' => 'required'
         ], [
-<<<<<<< HEAD
             'product_code.required' => 'Kode produk tidak boleh kosong',
-=======
->>>>>>> 5d0092db250f61d44ca8ac922d0b64916ca62f1c
             'product_code.string' => 'Kode produk harus berupa String.',
             'product_name.required' => 'Nama produk tidak boleh kosong',
             'product_name.string' => 'Nama produk harus berupa String.',
