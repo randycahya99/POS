@@ -47,7 +47,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="<?php echo e(url('/')); ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
         </li>
@@ -400,37 +400,6 @@
             var rupiah = document.getElementById('selling_price');
             rupiah.addEventListener('keyup', function(e){
               rupiah.value = formatRupiah(this.value, 'Rp. ');
-            });
-
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix){
-              var number_string = angka.replace(/[^,\d]/g, '').toString(),
-              split       = number_string.split(','),
-              sisa        = split[0].length % 3,
-              rupiah        = split[0].substr(0, sisa),
-              ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
-
-          // tambahkan titik jika yang di input sudah menjadi angka ribuan
-          if(ribuan){
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-          }
-
-          rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-          return prefix == undefined ? rupiah : (rupiah ? 'Rp.' + rupiah : '');
-        }
-      </script>
-
-                <!-- Menambahkan fungsi Rupiah pada bagian produk-->
-          <script type="text/javascript">
-            var rupiah3 = document.getElementById('purchase_price2');
-            rupiah3.addEventListener('keyup', function(e){
-              rupiah3.value = formatRupiah(this.value, 'Rp. ');
-            });
-
-            var rupiah4 = document.getElementById('selling_price2');
-            rupiah4.addEventListener('keyup', function(e){
-              rupiah4.value = formatRupiah(this.value, 'Rp. ');
             });
 
             /* Fungsi formatRupiah */

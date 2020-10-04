@@ -53,8 +53,8 @@
 							<th>Kode Produk</th>
 							<th>Nama Produk</th>
 							<th>Stok</th>
+							<th>Stauan</th>
 							<th>Harga Jual</th>
-							<th>Kategori</th>
 							<th width="80">Aksi</th>
 						</tr>
 					</thead>
@@ -66,8 +66,8 @@
 							<td>{{$products->product_code}}</td>
 							<td>{{$products->product_name}}</td>
 							<td align="center">{{$products->stock}}</td>
+							<td>{{$products->units->unit_name}}</td>
 							<td>@currency($products->selling_price)</td>
-							<td align="center">{{ !empty($products->categories) ? $products->categories->category_name:'-' }}</td>
 
 							<td>
 								{{-- <form method="post" action="unit/{{ $products->id }}" class="d-inline">
@@ -247,12 +247,12 @@
 					</div>
 					<div class="form-group">
 						<label>Harga Beli Produk</label>
-						<input type="text" name="purchase_price" id="purchase_price2" class="form-control" value="@currency($products['purchase_price'])" required>
+						<input type="text" name="purchase_price" id="purchase_price2" class="form-control" value="{{$products->purchase_price}}" required>
 						<div class="invalid-feedback">Harga beli produk tidak valid</div>
 					</div>
 					<div class="form-group">
 						<label>Harga Jual Produk</label>
-						<input type="text" name="selling_price" id="selling_price2" class="form-control" value="@currency($products['selling_price'])" required>
+						<input type="text" name="selling_price" id="selling_price2" class="form-control" value="{{$products->purchase_price}}" required>
 						<div class="invalid-feedback">Harga jual produk tidak valid</div>
 					</div>
 					<div class="modal-footer">
