@@ -46,14 +46,14 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item<?php echo e(request()->is('/') ? ' active' : ''); ?>">
         <a class="nav-link" href="<?php echo e(url('/')); ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
         </li>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item<?php echo e(request()->is('unit','category','product') ? ' active' : ''); ?>">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-box-open"></i>
             <span>Manajamen Produk</span>
@@ -68,7 +68,7 @@
         </li>
 
         <!-- Nav Order -->
-        <li class="nav-item">
+        <li class="nav-item<?php echo e(request()->is('order') ? ' active' : ''); ?>">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
             <i class="fas fa-fw fa-money-bill-alt"></i>
             <span>Orders</span>
