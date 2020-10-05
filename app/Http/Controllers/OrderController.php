@@ -20,9 +20,30 @@ class OrderController extends Controller
      */
     public function index()
     {
+
+        // ORDER CODE 
+        $ordercode = Orders::select('invoice')->orderBy('id', 'DESC')->take(1)->get();
+        $urut = substr($ordercode, 26, 1);
+        $tambah = $urut + 1;
+        // dd($tambah);
+        $tgl = date("d");
+        $bln = date("m");
+        $thn = date("y");
+
+        if (strlen($tambah) == 1) 
+        {
+            $format = "TR".$tgl.$bln.$thn."0000".$tambah;
+        }elseif (strlen($tambah) == 2) {
+            $format = "TR".$tgl.$bln.$thn."0000".$tambah;
+        }else{
+            $format = "TR".$tgl.$bln.$thn."0000".$tambah;
+        }
+        // END ORDER CODE
+
+
         $product = Products::all();
 
-        return view('order', compact('product'));
+        return view('order', compact('product','format'));
     }
 
     /**

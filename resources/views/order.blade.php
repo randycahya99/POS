@@ -4,6 +4,7 @@
 
 @section('container')
 
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -32,14 +33,14 @@
                                                 <th width="45">Aksi</th>
                                             </tr>
                                         </thead>
-                    
+
                                         <tbody>
                                             @foreach($product as $products)
                                             <tr>
                                                 <td align="center">{{$loop->iteration}}</td>
                                                 <td>{{$products->product_code}}</td>
                                                 <td>{{$products->product_name}}</td>
-                                                <td>{{$products->stock}}</td>
+                                                <td>{{$products->stock}} {{$products->units->unit_name}}</td>
                                                 <td>@currency($products->selling_price)</td>
                                                 <td align="center">
                                                     <button type="button" class="btn  btn-sm btn-success" data-toggle="modal" data-target="#addToCart{{$products['id']}}">
@@ -70,19 +71,30 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-secondary float-left">Total</h6>
                     </div>
                     <div class="card-body">
-                        <p>LalaDumdum</p><br>
-                        <p>LalaDumdum</p><br>
-                        <p>LalaDumdum</p><br>
-                        <p>LalaDumdum</p>
+                        <span class="float-lg-left">No. Transaksi </span>
+                        <span class="float-lg-right p-b3">{{$format}}</span><br>
+                        <span class="float-lg-left">Tanggal</span>
+                        <span class="float-lg-right">{{ date('d M, Y') }}</span><br>
+                        <span class="float-lg-left">Waktu</span>
+                        <span class="float-lg-right p-b3">{{ date('H:i') }} WIB</span><br><hr>
+                        <div class="total py-3">
+                            <h5 class="float-lg-left font-weight-bold">Subtotal</h5>
+                            <h5 class="float-lg-right">Rp. 350.000</h5>
+                        </div>
+                        <div class="diskon py-3">
+                            <h5 class="float-lg-left font-weight-bold">Diskon</h5>
+                            <h5 class="float-lg-right">Rp. 350.000</h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -110,3 +122,10 @@
 @endforeach
 
 @endsection
+
+<script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
+<!-- <script type="text/javascript">
+    $('#dataTable').dataTable( {
+        "pageLength": 1
+  });
+</script> -->

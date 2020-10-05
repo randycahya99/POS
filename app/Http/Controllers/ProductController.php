@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
 
         // // Membuat kode otomatis
-        // $productCode = Products::select('product_code')->orderBy('id', 'DESC')->take(1)->get();
+        // $orderCode = Products::select('invoice')->orderBy('id', 'DESC')->take(1)->get();
         // $urut = substr($productCode, 26, 1);
         // $tambah = $urut + 1;
         // // dd($tambah);
