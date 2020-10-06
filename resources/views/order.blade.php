@@ -81,19 +81,48 @@
                         <span class="float-lg-right">{{ date('d M, Y') }}</span><br>
                         <span class="float-lg-left">Waktu</span>
                         <span class="float-lg-right p-b3">{{ date('H:i') }} WIB</span><br><hr>
-                        <div class="total py-3">
-                            <h5 class="float-lg-left font-weight-bold">Subtotal</h5>
-                            <h5 class="float-lg-right">Rp. 350.000</h5>
+                        <div class="detail-order-tr">
+                            <form>
+                              <div class="form-row align-items-center">
+                                  <div class="col-md-12 mb-2">
+                                      <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">Nama</div>
+                                      </div>
+                                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Masukan nama pelanggan">
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mb-2">
+                                  <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Diskon</div>
+                                    </div>
+                                    <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Masukan jumlah Diskon">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div class="alert alert-success" role="alert">
+                                    <h5 class="text-center">Sub Total</h5>
+                                    <h3 class="text-center">Rp. 300.000</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Bayar</div>
+                                </div>
+                                <input type="text" class="form-control" id="bayarid" placeholder="Masukan jumlah bayar">
+                            </div>
                         </div>
-                        <div class="diskon py-3">
-                            <h5 class="float-lg-left font-weight-bold">Diskon</h5>
-                            <h5 class="float-lg-right">Rp. 350.000</h5>
-                        </div>
+                        <button type="button" class="btn btn-sm btn-primary">Bayar</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -124,8 +153,3 @@
 @endsection
 
 <script src="{{asset('assets/adminpos/vendor/jquery/jquery.min.js')}}"></script>
-<!-- <script type="text/javascript">
-    $('#dataTable').dataTable( {
-        "pageLength": 1
-  });
-</script> -->
